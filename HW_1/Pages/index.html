@@ -5,24 +5,8 @@
     <title></title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="myCSS.css">
 
-    <style type="text/css">
-      #ph > img {
-        height: 300px;
-      }
-      #seasonredner,
-      #ph {
-        margin-left: 20px;
-      }
-      h6{
-          margin-left:auto;
-          margin-right:auto;
-      }
-      .container-fluid {
-        margin-top: 20px;
-        margin-left: 20px;
-      }
-    </style>
 
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -344,10 +328,73 @@
     </script>
   </head>
   <body>
+<!-- GRID STRAT -->
+<div class="container">
+  <div class="Menu w3-border-bottom">
+    <div class="register">
+      <button onclick="document.getElementById('id01').style.display='block'"
+                                class="myButton"
+                                id="register-btn">
+                            Register
+                        </button>
+    </div>
+    <div class="login">
+      <button onclick="document.getElementById('id02').style.display='block'"
+      class="myButton"
+      id="login-btn">
+  Login
+</button>
+    </div>
+    <div class="logo">
+      <img id="icon" src="icon.png">
+    </div>
+    <div class="your-fav-tv">
+      <a href="../Pages/view.html">
+      <button class="myButton">
+          View Page
+      </button></a>
+    </div>
+    <div class="wellcome">
+      <div id="welcome-user"></div>
+    </div>
+    <div class="disconnect-btn">
+      <button onclick="document.getElementById('id01').style.display='block'"
+      class="w3-button w3-green w3-large btn-block"
+      id="disconnect-btn">
+  Disconnect
+</button>
+</div>
+  </div>
+  <div class="search">
+    <div class="search-text">
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <!-- <span class="input-group-text" id="basic-addon1">Search</span> -->
+        </div>
+        <input id="tvShowName"
+               type="text"
+               class="form-control"
+               placeholder="Search TV Show"
+               aria-label="Username"
+               aria-describedby="basic-addon1" />
+    </div>
+    </div>
+    <div class="search-btn">
+      <button class="myButton" id="getTV">
+        Search
+    </button>
+    </div>
+  </div>
+  <div class="content"></div>
+  <div class="made-by"></div>
+</div>
+<!-- GRID END -->
+
+
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <div class="input-group mb-3">
+                <!-- <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">Search</span>
                     </div>
@@ -357,36 +404,36 @@
                            placeholder="TV Show"
                            aria-label="Username"
                            aria-describedby="basic-addon1" />
-                </div>
+                </div> -->
             </div>
             <div class="col">
-                <button class="w3-button w3-green w3-large btn-block" id="getTV">
+                <!-- <button class="w3-button w3-green w3-large btn-block" id="getTV">
                     Search
-                </button>
+                </button> -->
             </div>
             <div class="col">
-                <a href="../Pages/view.html">
+                <!-- <a href="../Pages/view.html">
                     <button class="w3-button w3-green w3-large btn-block">
                         View Page
                     </button>
-                </a>
+                </a> -->
             </div>
 
             <div class="col">
-                <button onclick="document.getElementById('id01').style.display='block'"
+                <!-- <button onclick="document.getElementById('id01').style.display='block'"
                         class="w3-button w3-green w3-large btn-block"
                         id="disconnect-btn">
                     Disconnect
-                </button>
+                </button> -->
 
 
                 <div class="col">
                     <div class="w3-container">
-                        <button onclick="document.getElementById('id01').style.display='block'"
+                        <!-- <button onclick="document.getElementById('id01').style.display='block'"
                                 class="w3-button w3-green w3-large btn-block"
                                 id="register-btn">
                             Register
-                        </button>
+                        </button> -->
 
                         <div id="id01" class="w3-modal">
                             <div class="w3-modal-content w3-card-4 w3-animate-zoom"
@@ -490,11 +537,11 @@
                 </div>
                 <div class="col">
                     <div class="w3-container">
-                        <button onclick="document.getElementById('id02').style.display='block'"
+                        <!-- <button onclick="document.getElementById('id02').style.display='block'"
                                 class="w3-button w3-green w3-large btn-block"
                                 id="login-btn">
                             Login
-                        </button>
+                        </button> -->
 
                         <div id="id02" class="w3-modal">
                             <div class="w3-modal-content w3-card-4 w3-animate-zoom"
@@ -541,7 +588,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <div id="welcome-user"></div>
+                    <!-- <div id="welcome-user"></div> -->
                 </div>
             </div>
 
