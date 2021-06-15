@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous">
+    </script>
+    <script src="../Scripts/ajaxCalls.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script>
+
+        $(document).ready(function () {
+            console.log("work");
+            getAllEpisodesByUserID();
+        });
+
+        //function getAllEpisodes() {
+        //    let api = "../api/Episodes";
+        //    ajaxCall("GET", api, "", getAllEpisodesSuccessCB, getAllEpisodesErrorCB)
+        //}
+
+        function getAllEpisodesByUserID() {
+            var user_id = JSON.parse(localStorage.getItem('user-login')).Id;
+            let api = "../api/Episodes?id=" + user_id;
+            ajaxCall("GET", api, "" , getAllEpisodesSuccessCB, getAllEpisodesErrorCB)
+        }
+        
+        function getAllEpisodesSuccessCB(episodes) {
+            console.log("getAllEpisodesSuccessCB")
+            console.log(episodes)
+            tvShow = [];
+            tvShow.push(episodes[0].EpisodeName)
+            for (var i = 0; i < episodes.length; i++) {
+                if (tvShow.includes(episodes[i].EpisodeName)) {
+                }
+            
+                else {
+                    tvShow.push(episodes[i].EpisodeName)
+                }
+            }
+            $("#seasonredner").html('<select onchange="getSelectedEpisodes(this.value)" name="Seasons" id="seasonselect"></select>');
+            for (var i = 0; i < tvShow.length; i++) {
+                $("#seasonselect").append("<option value=" + "'" + tvShow[i] + "'" + ">" + tvShow[i] + "</option>");
+            }
+        }
+        function getAllEpisodesErrorCB() {
+            console.log(err)
+        }
+
+        function getSelectedEpisodes(tvName) {
+            console.log("tvName")
+            console.log(tvName)
+            var user_id = JSON.parse(localStorage.getItem('user-login')).Id;
+            let api = "../api/Episodes?tvName=" + "'" + tvName + "'" + "&user_id=" + user_id
+            ajaxCall("GET", api, "", getSelectedEpisodesSuccessCB, getSelectedEpisodesErrorCB)
+
+        }
+
+        function getSelectedEpisodesSuccessCB(episodesJ) {
+            $('.container').html('');
+            console.log("getSelectedEpisodesSuccessCB")
+            console.log(episodesJ)
+            for (var i = 0; i < episodesJ.length; i++) {
+                imgURL = "<img src='" + episodesJ[i].Img + "'/>";
+                $('.container').append(
+                    //'<div>Name: ' + episodesJ[i].Name + '</div>'
+                     '<div>' + imgURL + '</div>'
+                    + '<div>Series Name:' + episodesJ[i].EpisodeName + '</div>'
+                    + '<div>Season Number: ' + episodesJ[i].SeasonNumber + '</div>'
+                    + '<div>Overview: ' + episodesJ[i].Description + '</div>'
+                    + '<div>Air Date: ' + episodesJ[i].BroadcastDate + '</div>'
+                    + '<br>'
+                    + '<br>'
+                )
+
+            }
+        }
+        function getSelectedEpisodesErrorCB() {
+            console.log(err)
+        }
+        
+    </script>
+
+</head>
+<body>
+    <div id="seasonredner">
+
+
+    </div>
+    <div class="container">
+
+    </div>
+
+</body>
+</html>
