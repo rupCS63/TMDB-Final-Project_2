@@ -328,10 +328,53 @@ namespace HW_1.Models.DAL
 
             return 1;
         }
-        //public List<Episode> Get()
-        //{
-        //    return episodeList;
-        //}
+        public List<Episode> GetEpisode()
+        {
+            SqlConnection con = null;
+            List<Episode> episodesList = new List<Episode>();
+
+            try
+            {
+                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                String selectSTR = "SELECT * FROM Episodes_2021";
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    Episode ep = new Episode();
+                    ep.SeriesId = (int)dr["series_id"];
+                    ep.Id = (int)dr["episode_id"];
+                    ep.Name = (string)dr["episode_name"];
+                    
+                    //ep.EpisodeName = (string)dr["episode_name"];
+                    ep.Img = (string)dr["poster_path"];
+                    ep.Description = (string)dr["episode_overeview"];
+                    ep.BroadcastDate = dr["air_date"].ToString();
+                    ep.SeasonNumber = Convert.ToInt32(dr["season_number"]);
+
+                    episodesList.Add(ep);
+                }
+
+                return episodesList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+        }
         public List<Episode> GetEpisodeByTvName(string tvName, string user_id)
         {
             SqlConnection con = null;

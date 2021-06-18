@@ -59,12 +59,12 @@ namespace HW_1.Models
             return 1;
         }
 
-        //public List<Episode> Get()
-        //{
-        //    DataServices ds = new DataServices();
-        //    List<Episode> sList = ds.Get();
-        //    return sList;
-        //}
+        public List<Episode> Get()
+        {
+            DataServices ds = new DataServices();
+            List<Episode> sList = ds.GetEpisode();
+            return sList;
+        }
 
         public List<Episode> GetEpisodeByTvName(string tvName,string user_id)
         {

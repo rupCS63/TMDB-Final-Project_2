@@ -11,13 +11,13 @@ namespace HW_1.Controllers
 {
     public class EpisodesController : ApiController
     {
-        // GET api/<controller>
-        //public IEnumerable<Episode> Get()
-        //{
-        //    Episode episode = new Episode();
-        //    List<Episode> episodeList = episode.Get();
-        //    return episodeList;
-        //}
+         //GET api/<controller>
+        public IEnumerable<Episode> Get()
+        {
+            Episode episode = new Episode();
+            List<Episode> episodeList = episode.Get();
+            return episodeList;
+        }
 
         //"../api/Episodes?id=" + user_id;
         public List<Episode> Get(string id)
