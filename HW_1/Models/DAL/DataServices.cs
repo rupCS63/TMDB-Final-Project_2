@@ -35,9 +35,9 @@ namespace HW_1.Models.DAL
         //--------------------------------------------------------------------
         // Build the Insert command String
         //--------------------------------------------------------------------
-        private SqlCommand BuildInsertCommand(Object Obj , SqlConnection con)
+        private SqlCommand BuildInsertCommand(Object Obj, SqlConnection con)
         {
-            if(Obj is User)
+            if (Obj is User)
             {
                 User temp = (User)Obj;
                 // use a string builder to create the dynamic string
@@ -78,7 +78,7 @@ namespace HW_1.Models.DAL
                 return cmd;
             }
 
-            else if(Obj is Series)
+            else if (Obj is Series)
             {
 
                 Series temp = (Series)Obj;
@@ -87,7 +87,7 @@ namespace HW_1.Models.DAL
                 string prefix = "INSERT INTO Series_2021 " + "(id, name, first_air_date,origin_country,original_language,overview,popularity,poster_path)";
                 string CommandText = prefix + sql_insert;
                 SqlCommand cmd = new SqlCommand(CommandText, con);
-                cmd.Parameters.AddWithValue("@id",temp.Id);
+                cmd.Parameters.AddWithValue("@id", temp.Id);
                 cmd.Parameters.AddWithValue("@name", temp.Name);
                 cmd.Parameters.AddWithValue("@first_air_date", temp.First_air_date);
                 cmd.Parameters.AddWithValue("@origin_country", temp.Origin_country);
@@ -102,7 +102,7 @@ namespace HW_1.Models.DAL
             {
                 return new SqlCommand();
             }
-            
+
         }
         private SqlCommand CreateCommand(SqlCommand cmd, SqlConnection con)
         {
@@ -174,9 +174,9 @@ namespace HW_1.Models.DAL
             {
                 con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
 
-                String selectSTR = "SELECT * FROM Users_2021 WHERE email =" + "'" + mail + "'" + "and password = " + "'" + password + "'";       
+                String selectSTR = "SELECT * FROM Users_2021 WHERE email =" + "'" + mail + "'" + "and password = " + "'" + password + "'";
                 SqlCommand cmd = new SqlCommand(selectSTR, con);
-                
+
 
                 // get a reader
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
@@ -192,7 +192,7 @@ namespace HW_1.Models.DAL
                     u.Cellphone = (string)dr["cellphone"];
                     u.Gender = (string)dr["gender"];
                     u.Address = (string)dr["address"];
-                    
+
                 }
                 return u;
 
@@ -230,20 +230,20 @@ namespace HW_1.Models.DAL
 
                 // get a reader
                 SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-                
+
 
                 while (dr.Read())
                 {   // Read till the end of the data into a row
                     count++;
                 }
-                if(count == 0)
+                if (count == 0)
                 {
-                    
+
                     return addToFav(episode, id);
                 }
                 else
                 {
-                   return 0;
+                    return 0;
                 }
 
             }
@@ -262,9 +262,9 @@ namespace HW_1.Models.DAL
             }
 
         }
-        public int addToFav(Episode episode,int id)
+        public int addToFav(Episode episode, int id)
         {
-            
+
             SqlConnection con = new SqlConnection();
 
             try
@@ -284,9 +284,9 @@ namespace HW_1.Models.DAL
             cmd.Parameters.AddWithValue("@userid1", id);
             cmd.Parameters.AddWithValue("@episode_id1", episode.Id);
 
-            
+
             try
-            {          
+            {
                 int numEffected = cmd.ExecuteNonQuery(); // execute the command
                 return numEffected;
             }
@@ -323,7 +323,7 @@ namespace HW_1.Models.DAL
                 throw (ex);
             }
 
-            sendCmd = BuildInsertCommand(obj,con);      // helper method to build the insert string
+            sendCmd = BuildInsertCommand(obj, con);      // helper method to build the insert string
 
             try
             {
@@ -389,8 +389,6 @@ namespace HW_1.Models.DAL
                     ep.SeriesId = (int)dr["series_id"];
                     ep.Id = (int)dr["episode_id"];
                     ep.Name = (string)dr["episode_name"];
-                    
-                    //ep.EpisodeName = (string)dr["episode_name"];
                     ep.Img = (string)dr["poster_path"];
                     ep.Description = (string)dr["episode_overeview"];
                     ep.BroadcastDate = dr["air_date"].ToString();
@@ -415,155 +413,204 @@ namespace HW_1.Models.DAL
 
             }
         }
-        public List<Series> GetSeries()
-        {
-            SqlConnection con = null;
-            List<Series> seriesesList = new List<Series>();
-
-            try
+            public IDictionary<string, int> GetEpisodeLikes()
             {
-                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
-
-                String selectSTR = "SELECT * FROM Series_2021";
-                SqlCommand cmd = new SqlCommand(selectSTR, con);
-
-                // get a reader
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-
-                while (dr.Read())
-                {   // Read till the end of the data into a row
-                    Series s = new Series();
-                    s.Id = (int)dr["id"];
-                    s.Name = (string)dr["name"];
-                    s.First_air_date =  dr["first_air_date"].ToString();
-                    s.Origin_country = (string)dr["origin_country"];
-                    s.Original_language = (string)dr["original_language"];
-                    s.Overview = (string)dr["overview"];
-                    s.Popularity = (float)Convert.ToDouble(dr["popularity"]);
-                    s.Poster_path = (string)dr["poster_path"];
-
-                    seriesesList.Add(s);
-                }
-
-                return seriesesList;
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-            }
-            finally
-            {
-                if (con != null)
+                
+                SqlConnection con = null;
+                List<Series> seriesesList = new List<Series>();
+                try
                 {
-                    con.Close();
-                }
+                    con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+                                                          //IDictionary<string, int> episodeLikes = new Dictionary<string, int>();
 
-            }
-        }
-        public List<Episode> GetEpisodeByTvName(string tvName, string user_id)
-        {
-            SqlConnection con = null;
+                    Dictionary<string, int> episodeLikes = new Dictionary<string, int>();
+                    String selectSTR = "SELECT * FROM Episodes_2021";
+                    SqlCommand cmd = new SqlCommand(selectSTR, con);
 
-            try
-            {
-                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
-
-                String selectSTR = "SELECT *"
-                                    + " FROM Favorites_2021 as f"
-                                    + " INNER JOIN Episodes_2021 as e"
-                                    + " ON e.episode_id = f.episode_id1"
-                                    + " WHERE f.userid1 = " + "'" + user_id + "'"+ " and e.episode_name ="  + tvName  ;
-                SqlCommand cmd = new SqlCommand(selectSTR, con);
-
-
-                // get a reader
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-                List<Episode> listOfepisodes = new List<Episode>();
+                    // get a reader
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
                 while (dr.Read())
-                {   // Read till the end of the data into a row
-                    Episode e = new Episode();
-                    e.Id = Convert.ToInt32(dr["episode_id"]);
-                    e.SeriesId = Convert.ToInt32(dr["series_id"]);
-                    e.SeasonNumber = Convert.ToInt32(dr["season_number"]);
-                    e.EpisodeName = (string)dr["episode_name"];
-                    e.Img = (string)dr["poster_path"];
-                    e.Description = (string)dr["episode_overeview"];
-                    e.BroadcastDate = Convert.ToDateTime(dr["air_date"]).ToString();
+                    {   // Read till the end of the data into a row
+                    if (episodeLikes.ContainsKey((string)dr["episode_name"]) == true)
+                    {
+                        episodeLikes[(string)dr["episode_name"]] += 1;
+                    }
+                    else
+                    {
+                        episodeLikes.Add((string)dr["episode_name"], 1);
 
-                    listOfepisodes.Add(e);
-
+                    }
                 }
-                return listOfepisodes;
 
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-            }
-            finally
-            {
-                if (con != null)
-
+                    return episodeLikes;
+                }
+                catch (Exception ex)
                 {
-                    con.Close();
+                    // write to log
+                    throw (ex);
                 }
-
-            }
-        }
-        public List<Episode> GetUserEpisodesById(string user_id)
-        {
-            SqlConnection con = null;
-
-            try
-            {
-                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
-
-                String selectSTR = "SELECT *"
-                                    + " FROM Favorites_2021 as f"
-                                    + " INNER JOIN Episodes_2021 as e"
-                                    + " ON e.episode_id = f.episode_id1"
-                                    + " WHERE f.userid1 = "+"'"+user_id + "'";
-                SqlCommand cmd = new SqlCommand(selectSTR, con);
-
-
-                // get a reader
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
-                List<Episode> listOfepisodes = new List<Episode>();
-                while (dr.Read())
-                {   // Read till the end of the data into a row
-                    Episode e = new Episode();
-                    e.Id = Convert.ToInt32(dr["episode_id"]);
-                    e.SeriesId = Convert.ToInt32(dr["series_id"]);
-                    e.SeasonNumber= Convert.ToInt32(dr["season_number"]);
-                    e.EpisodeName = (string)dr["episode_name"];
-                    e.Img = (string)dr["poster_path"];
-                    e.Description = (string)dr["episode_overeview"];
-                    e.BroadcastDate = Convert.ToDateTime(dr["air_date"]).ToString();
-                   
-                    listOfepisodes.Add(e);
-
-                }
-                return listOfepisodes;
-
-            }
-            catch (Exception ex)
-            {
-                // write to log
-                throw (ex);
-            }
-            finally
-            {
-                if (con != null)
-
+                finally
                 {
-                    con.Close();
+                    if (con != null)
+                    {
+                        con.Close();
+                    }
+
                 }
 
             }
+
+            public List<Series> GetSeries()
+            {
+                SqlConnection con = null;
+                List<Series> seriesesList = new List<Series>();
+
+                try
+                {
+                    con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+                                                         //IDictionary<string, int> episodeLikes = new Dictionary<string, int>();
+
+                    IDictionary<string, int> episodeLikes = GetEpisodeLikes();
+                    String selectSTR = "SELECT * FROM Series_2021";
+                    SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                    // get a reader
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                    while (dr.Read())
+                    {   // Read till the end of the data into a row
+                        Series s = new Series();
+                        s.Id = (int)dr["id"];
+                        s.Name = (string)dr["name"];
+                        s.First_air_date = dr["first_air_date"].ToString();
+                        s.Origin_country = (string)dr["origin_country"];
+                        s.Original_language = (string)dr["original_language"];
+                        s.Overview = (string)dr["overview"];
+                        s.Popularity = (float)Convert.ToDouble(dr["popularity"]);
+                        s.Poster_path = (string)dr["poster_path"];
+                        s.Likes = episodeLikes[(string)dr["name"]];
+                        seriesesList.Add(s);
+                    }
+
+                    return seriesesList;
+                }
+                catch (Exception ex)
+                {
+                    // write to log
+                    throw (ex);
+                }
+                finally
+                {
+                    if (con != null)
+                    {
+                        con.Close();
+                    }
+
+                }
+            }
+            public List<Episode> GetEpisodeByTvName(string tvName, string user_id)
+            {
+                SqlConnection con = null;
+
+                try
+                {
+                    con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                    String selectSTR = "SELECT *"
+                                        + " FROM Favorites_2021 as f"
+                                        + " INNER JOIN Episodes_2021 as e"
+                                        + " ON e.episode_id = f.episode_id1"
+                                        + " WHERE f.userid1 = " + "'" + user_id + "'" + " and e.episode_name =" + tvName;
+                    SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+
+                    // get a reader
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+                    List<Episode> listOfepisodes = new List<Episode>();
+                    while (dr.Read())
+                    {   // Read till the end of the data into a row
+                        Episode e = new Episode();
+                        e.Id = Convert.ToInt32(dr["episode_id"]);
+                        e.SeriesId = Convert.ToInt32(dr["series_id"]);
+                        e.SeasonNumber = Convert.ToInt32(dr["season_number"]);
+                        e.EpisodeName = (string)dr["episode_name"];
+                        e.Img = (string)dr["poster_path"];
+                        e.Description = (string)dr["episode_overeview"];
+                        e.BroadcastDate = Convert.ToDateTime(dr["air_date"]).ToString();
+
+                        listOfepisodes.Add(e);
+
+                    }
+                    return listOfepisodes;
+
+                }
+                catch (Exception ex)
+                {
+                    // write to log
+                    throw (ex);
+                }
+                finally
+                {
+                    if (con != null)
+
+                    {
+                        con.Close();
+                    }
+
+                }
+            }
+            public List<Episode> GetUserEpisodesById(string user_id)
+            {
+                SqlConnection con = null;
+
+                try
+                {
+                    con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                    String selectSTR = "SELECT *"
+                                        + " FROM Favorites_2021 as f"
+                                        + " INNER JOIN Episodes_2021 as e"
+                                        + " ON e.episode_id = f.episode_id1"
+                                        + " WHERE f.userid1 = " + "'" + user_id + "'";
+                    SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+
+                    // get a reader
+                    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+                    List<Episode> listOfepisodes = new List<Episode>();
+                    while (dr.Read())
+                    {   // Read till the end of the data into a row
+                        Episode e = new Episode();
+                        e.Id = Convert.ToInt32(dr["episode_id"]);
+                        e.SeriesId = Convert.ToInt32(dr["series_id"]);
+                        e.SeasonNumber = Convert.ToInt32(dr["season_number"]);
+                        e.EpisodeName = (string)dr["episode_name"];
+                        e.Img = (string)dr["poster_path"];
+                        e.Description = (string)dr["episode_overeview"];
+                        e.BroadcastDate = Convert.ToDateTime(dr["air_date"]).ToString();
+
+                        listOfepisodes.Add(e);
+
+                    }
+                    return listOfepisodes;
+
+                }
+                catch (Exception ex)
+                {
+                    // write to log
+                    throw (ex);
+                }
+                finally
+                {
+                    if (con != null)
+
+                    {
+                        con.Close();
+                    }
+
+                }
+            }
+
         }
 
     }
-
-}

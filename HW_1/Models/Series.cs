@@ -16,13 +16,14 @@ namespace HW_1.Models
         string overview;
         float popularity;
         string poster_path;
+        int likes;
 
 
         public Series()
         {
 
         }
-        public Series(int id, string name, string first_air_date, string origin_country, string original_language, string overview, float popularity, string poster_path)
+        public Series(int id, string name, string first_air_date, string origin_country, string original_language, string overview, float popularity, string poster_path,int likes)
         {
             this.id = id;
             this.name = name;
@@ -32,6 +33,7 @@ namespace HW_1.Models
             this.overview = overview;
             this.popularity = popularity;
             this.poster_path = poster_path;
+            this.likes = likes;
         }
 
         public int Id { get => id; set => id = value; }
@@ -42,6 +44,7 @@ namespace HW_1.Models
         public string Overview { get => overview; set => overview = value; }
         public float Popularity { get => popularity; set => popularity = value; }
         public string Poster_path { get => poster_path; set => poster_path = value; }
+        public int Likes { get => likes; set => likes = value; }
 
         public int InsertToSQL()
         {
