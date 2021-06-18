@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="../Scripts/ajaxCalls.js"></script>
+    <title>Admin Panel</title>
+    <style>
+        .text,.text-2,.text-3{
+            color: aliceblue;
+            text-align:center;
+            
+            font-size:35px;
+            font-weight:500;
+            font-family: sans-serif;
+            background-color: rgb(38, 136, 216);
+            padding: 30px 30px;
+            margin-bottom: 10px;
+            border: 2px rgba(0, 0, 0, 0.7) solid;
+            border-radius: 25px;
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 10px;
+            
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 0.4fr 1.4fr 1.4fr 1.4fr 0.4fr;
+            grid-template-rows: 0.8fr 0.4fr 1.7fr 0.4fr 1.6fr 0.4fr 1.6fr;
+            gap: 0px 0px;
+            grid-auto-flow: row;
+            grid-template-areas:
+                "Menu Menu Menu Menu Menu"
+                ". text text text ."
+                ". user-table user-table user-table ."
+                ". text-2 text-2 text-2 ."
+                ". tv-show-table tv-show-table tv-show-table ."
+                ". text-3 text-3 text-3 ."
+                ". series-table series-table series-table .";
+            width: 100%;
+            height: 98%;
+        }
+
+        .Menu {
+            display: grid;
+            grid-template-columns: 0.8fr 1.5fr 1.2fr 0.7fr 0.7fr 1.1fr;
+            grid-template-rows: 0.9fr 1.1fr 1fr;
+            gap: 0px 0px;
+            grid-auto-flow: row;
+            grid-template-areas:
+                "logo . . . . ."
+                "logo your-fav-tv . login register wellcome"
+                "logo . . . . disconnect-btn";
+            grid-area: Menu;
+        }
+
+        .register {
+            grid-area: register;
+        }
+
+        .login {
+            grid-area: login;
+        }
+
+        .logo {
+            grid-area: logo;
+        }
+
+        .your-fav-tv {
+            grid-area: your-fav-tv;
+        }
+
+        .wellcome {
+            grid-area: wellcome;
+        }
+
+        .disconnect-btn {
+            grid-area: disconnect-btn;
+        }
+
+        .text {
+            grid-area: text;
+        }
+
+        .user-table {
+            grid-area: user-table;
+        }
+
+        .text-2 {
+            grid-area: text-2;
+        }
+
+        .tv-show-table {
+            grid-area: tv-show-table;
+        }
+
+        .text-3 {
+            grid-area: text-3;
+        }
+
+        .series-table {
+            grid-area: series-table;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            getTables();
+
+        });
+        function error() {
+            console.log("error");
+        }
+        function getTables() {
+            ajaxCall("GET", "../api/users", "", getUserTableSuccess, error);
+        }
+        function getUserTableSuccess(userdata) { //List<Users>
+            users = userdata; // keep the users array in a global variable;
+            try {
+                tbl = $('#user-table').DataTable({
+                    data: userdata,
+                    pageLength: 5,
+                    columns: [
+                        { data: "Id" }, 
+                        { data: "Name" },          
+                        { data: "LastName" },
+                        { data: "Email" },
+                        { data: "Password" },
+                        { data: "Cellphone" },
+                        { data: "Gender" },
+                        { data: "Address" },
+                        { data: "IsAdmin" },
+                        { data: "Genre" },
+                        { data: "YearBirth" },
+
+                    ],
+                });
+
+            }
+
+            catch (err) {
+                alert(err);
+            }
+            finally {
+                ajaxCall("GET", "../api/episodes", "", getEpisodesSuccess, error);
+            }
+        }
+
+        function getEpisodesSuccess(episodedata) {
+            cars = carsdata; // keep the cars array in a global variable;
+            try {
+                tbl = $('#carsTable').DataTable({
+                    data: carsdata,
+                    pageLength: 5,
+                    columns: [
+                        { data: "Id" },
+                        { data: "Manufacturer" },
+                        { data: "Model" },
+                        { data: "Year" },
+                        { data: "Price" },
+                        {
+                            data: "Color",
+                            render: function (data, type, row, meta) {
+                                return "<div class = 'colorDiv' style='background-color:" + data + "'> </div>"
+                            }
+                        },
+                        { data: "Hand" },
+                        {
+                            data: "Automatic",
+                            render: function (data, type, row, meta) {
+                                if (data == true)
+                                    return '<input type="checkbox" checked disabled="disabled" />';
+                                else
+                                    return '<input type="checkbox" disabled="disabled"/>';
+                            }
+                        },
+                        {
+                            data: "Description",
+                            visible: false
+                        },
+                        {
+                            data: "Image",
+                            visible: false
+                        }
+                    ],
+                });
+
+            }
+
+            catch (err) {
+                alert(err);
+            }
+            finally {
+                ajaxCall("GET", "../api/series", "", getSeriesSuccess, error);
+            }
+        }
+
+        function getSeriesSuccess(seriesdata) {
+            cars = carsdata; // keep the cars array in a global variable;
+            try {
+                tbl = $('#carsTable').DataTable({
+                    data: carsdata,
+                    pageLength: 5,
+                    columns: [
+                        { data: "Id" },
+                        { data: "Manufacturer" },
+                        { data: "Model" },
+                        { data: "Year" },
+                        { data: "Price" },
+                        {
+                            data: "Color",
+                            render: function (data, type, row, meta) {
+                                return "<div class = 'colorDiv' style='background-color:" + data + "'> </div>"
+                            }
+                        },
+                        { data: "Hand" },
+                        {
+                            data: "Automatic",
+                            render: function (data, type, row, meta) {
+                                if (data == true)
+                                    return '<input type="checkbox" checked disabled="disabled" />';
+                                else
+                                    return '<input type="checkbox" disabled="disabled"/>';
+                            }
+                        },
+                        {
+                            data: "Description",
+                            visible: false
+                        },
+                        {
+                            data: "Image",
+                            visible: false
+                        }
+                    ],
+                });
+
+            }
+
+            catch (err) {
+                alert(err);
+            }
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+
+    <div class="container">
+        <div class="Menu">
+            <div class="register"></div>
+            <div class="login"></div>
+            <div class="logo"></div>
+            <div class="your-fav-tv"></div>
+            <div class="wellcome"></div>
+            <div class="disconnect-btn"></div>
+        </div>
+        <div class="text">Users Table</div>
+        <div class="user-table">
+            <table id="user-table" class="display nowrap">
+                <thead>
+                    <tr>    
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Password</th>
+                        <th>Cellphone</th>
+                        <th>Gender</th>
+                        <th>Address</th>
+                        <th>Admin Status</th>
+                        <th>Favorite Genre</th>
+                        <th>Year of birth</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="text-2">TV Show Table</div>
+        <div class="tv-show-table"></div>
+        <div class="text-3">Series Table</div>
+        <div class="series-table"></div>
+    </div>
+
+
+</body>
+</html>

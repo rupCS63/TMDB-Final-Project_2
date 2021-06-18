@@ -13,9 +13,10 @@ namespace HW_1.Controllers
     public class UsersController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        public List<User> Get() //get users table for the admin panel
         {
-            return new string[] { "value1", "value2" };
+            User u = new User();
+            return u.GetUsers();
         }
 
         // GET api/<controller>/mail/password

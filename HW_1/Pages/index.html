@@ -22,7 +22,7 @@
     />
 
     <script>
-      // https://api.themoviedb.org/3/search/tv?api_key=1e5a5ee20af326aebb685a34a1868b76&language=en-US&page=1&include_adult=false&query=Grey%27s%20Anatomy
+      //// https://api.themoviedb.org/3/search/tv?api_key=1e5a5ee20af326aebb685a34a1868b76&language=en-US&page=1&include_adult=false&query=Grey%27s%20Anatomy
 
       $(document).ready(function () {
         $("#getTV").click(getTV);
@@ -150,8 +150,9 @@
         let useryear = $("#useryear").val();
         let genreDDL = $("#genreDDL").val();
         let useraddress = $("#useraddress").val();
-        /*if (genreDDL == -1) genreDDL = "null"*/
-
+          if (genreDDL == "") {
+              genreDDL == "Comedy";
+          }
         let userObj = {
           Name: usrname,
           LastName: userlastname,
@@ -162,6 +163,8 @@
           YearBirth: useryear,
           Genre: genreDDL,
           Address: useraddress,
+          IsAdmin: 0,
+
         };
 
         //console.log(userObj)
@@ -186,7 +189,7 @@
       }
 
       function getTV() {
-        $(".container").html("");
+        $(".container-tvshow").html("");
         let name = $("#tvShowName").val();
         let method = "3/search/tv?";
         api_key = "api_key=" + key;
@@ -332,44 +335,44 @@
 <div class="container">
   <div class="Menu w3-border-bottom">
     <div class="register">
-      <button onclick="document.getElementById('id01').style.display='block'"
+       <button onclick="document.getElementById('id01').style.display='block'"
                                 class="myButton"
                                 id="register-btn">
                             Register
-                        </button>
+                        </button> 
     </div>
     <div class="login">
-      <button onclick="document.getElementById('id02').style.display='block'"
+       <button onclick="document.getElementById('id02').style.display='block'"
       class="myButton"
       id="login-btn">
   Login
-</button>
+</button> 
     </div>
     <div class="logo">
-      <img id="icon" src="icon.png">
+       <img id="icon" src="icon.png"> 
     </div>
     <div class="your-fav-tv">
-      <a href="../Pages/view.html">
+       <a href="../Pages/view.html">
       <button class="myButton">
-          View Page
-      </button></a>
+          Your favorite episodes
+      </button></a> 
     </div>
     <div class="wellcome">
-      <div id="welcome-user"></div>
+       <div id="welcome-user"></div> 
     </div>
+    <div class="Admin-BTN"></div>
     <div class="disconnect-btn">
-      <button onclick="document.getElementById('id01').style.display='block'"
+       <button onclick="document.getElementById('id01').style.display='block'"
       class="w3-button w3-green w3-large btn-block"
       id="disconnect-btn">
   Disconnect
-</button>
+</button> 
 </div>
   </div>
   <div class="search">
     <div class="search-text">
-      <div class="input-group mb-3">
+       <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <!-- <span class="input-group-text" id="basic-addon1">Search</span> -->
         </div>
         <input id="tvShowName"
                type="text"
@@ -377,65 +380,20 @@
                placeholder="Search TV Show"
                aria-label="Username"
                aria-describedby="basic-addon1" />
-    </div>
+    </div> 
     </div>
     <div class="search-btn">
-      <button class="myButton" id="getTV">
+       <button class="myButton" id="getTV">
         Search
-    </button>
+    </button> 
     </div>
   </div>
   <div class="content"></div>
   <div class="made-by"></div>
 </div>
 <!-- GRID END -->
-
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <!-- <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">Search</span>
-                    </div>
-                    <input id="tvShowName"
-                           type="text"
-                           class="form-control"
-                           placeholder="TV Show"
-                           aria-label="Username"
-                           aria-describedby="basic-addon1" />
-                </div> -->
-            </div>
-            <div class="col">
-                <!-- <button class="w3-button w3-green w3-large btn-block" id="getTV">
-                    Search
-                </button> -->
-            </div>
-            <div class="col">
-                <!-- <a href="../Pages/view.html">
-                    <button class="w3-button w3-green w3-large btn-block">
-                        View Page
-                    </button>
-                </a> -->
-            </div>
-
-            <div class="col">
-                <!-- <button onclick="document.getElementById('id01').style.display='block'"
-                        class="w3-button w3-green w3-large btn-block"
-                        id="disconnect-btn">
-                    Disconnect
-                </button> -->
-
-
-                <div class="col">
-                    <div class="w3-container">
-                        <!-- <button onclick="document.getElementById('id01').style.display='block'"
-                                class="w3-button w3-green w3-large btn-block"
-                                id="register-btn">
-                            Register
-                        </button> -->
-
-                        <div id="id01" class="w3-modal">
+      <div>
+                         <div id="id01" class="w3-modal">
                             <div class="w3-modal-content w3-card-4 w3-animate-zoom"
                                  style="max-width: 600px">
                                 <div class="w3-center">
@@ -443,7 +401,7 @@
                                     <span onclick="document.getElementById('id01').style.display='none'"
                                           class="w3-button w3-xlarge w3-hover-red w3-display-topright"
                                           title="Close Modal">&times;</span>
-                                    <!--NULL-->
+                                    
                                     <img src="../Images/img_tmdb.png"
                                          alt="Avatar"
                                          style="width: 30%"
@@ -451,7 +409,7 @@
                                 </div>
 
                                 <form id="formUser" class="w3-container">
-                                    <!--FORM-->
+                                    
                                     <div class="w3-section">
                                         <label><b>Username</b></label>
                                         <input class="w3-input w3-border w3-margin-bottom"
@@ -505,7 +463,7 @@
                                                required />
                                         <label for="genreDDL"><b>Favorite Genre</b></label>
                                         <select id="genreDDL">
-                                            <!--required will not accept "" value-->
+                                            required will not accept "" value
                                             <option value="">choose</option>
                                             <option value="comedy">Comedy</option>
                                             <option value="action">Action</option>
@@ -533,15 +491,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="w3-container">
-                        <!-- <button onclick="document.getElementById('id02').style.display='block'"
-                                class="w3-button w3-green w3-large btn-block"
-                                id="login-btn">
-                            Login
-                        </button> -->
 
                         <div id="id02" class="w3-modal">
                             <div class="w3-modal-content w3-card-4 w3-animate-zoom"
@@ -584,23 +533,13 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <!-- <div id="welcome-user"></div> -->
-                </div>
-            </div>
+                        </div> 
+      </div>
 
-            <!-- Content here -->
-        </div>
-            <!--REGISTER-->
-            <!--LOGIN-->
-
-            <div id="ph"></div>
+             <div id="ph"></div>
 
             <div id="seasonredner"></div>
 
-            <div class="container"></div>
+            <div class="container-tvshow"></div> 
 </body>
 </html>

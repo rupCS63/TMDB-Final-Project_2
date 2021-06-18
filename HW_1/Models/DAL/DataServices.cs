@@ -45,8 +45,8 @@ namespace HW_1.Models.DAL
             {
                 User temp = (User)Obj;
                 // use a string builder to create the dynamic string
-                string sql_insert = "Values(@username,@userlastname,@email,@password,@cellphone,@gender,@address)";
-                string prefix = "INSERT INTO Users_2021 " + "(username,userlastname,email,password,cellphone,gender,address)";
+                string sql_insert = "Values(@username,@userlastname,@email,@password,@cellphone,@gender,@address,@genre,@yearofbirth)";
+                string prefix = "INSERT INTO Users_2021 " + "(username,userlastname,email,password,cellphone,gender,address,genre,yearofbirth)";
                 string CommandText = prefix + sql_insert;
                 SqlCommand cmd = new SqlCommand(CommandText, con);
                 cmd.Parameters.AddWithValue("@username", temp.Name);
@@ -56,6 +56,10 @@ namespace HW_1.Models.DAL
                 cmd.Parameters.AddWithValue("@cellphone", temp.Cellphone);
                 cmd.Parameters.AddWithValue("@gender", temp.Gender);
                 cmd.Parameters.AddWithValue("@address", temp.Address);
+                cmd.Parameters.AddWithValue("@genre", temp.Genre);
+                cmd.Parameters.AddWithValue("@yearofbirth", temp.YearBirth);
+
+
 
                 return cmd;
             }
@@ -116,6 +120,56 @@ namespace HW_1.Models.DAL
             cmd.CommandType = System.Data.CommandType.Text; // the type of the command, can also be stored procedure
 
             return cmd;
+        }
+        public List<User> GetUsers()
+        {
+            SqlConnection con = null;
+            List<User> userList = new List<User>();
+
+            try
+            {
+                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                String selectSTR = "SELECT * FROM Users_2021";
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    User u = new User();
+
+                    u.Name = (string)dr["username"];
+                    u.LastName = (string)dr["userlastname"];
+                    u.Email = (string)dr["email"];
+                    u.Password = (string)dr["password"];
+                    u.Cellphone = (string)dr["cellphone"];
+                    u.Gender = (string)dr["gender"];
+                    u.Genre = (string)dr["genre"];
+                    u.Address = (string)dr["address"];
+                    u.Id = (int)dr["userid"];
+                    u.YearBirth = (int)dr["yearofbirth"];
+                    u.IsAdmin = (bool)dr["isAdmin"];
+
+                    userList.Add(u);
+                }
+
+                return userList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
         }
 
         public User validLoginFromDB(string mail, string password)
