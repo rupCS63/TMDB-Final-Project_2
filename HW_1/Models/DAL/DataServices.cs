@@ -211,7 +211,57 @@ namespace HW_1.Models.DAL
 
             }
 
-        }       
+        }
+        //checkDuplicate
+        public int checkDuplicate(Episode episode, int id)
+        {
+            SqlConnection con = null;
+
+            try
+            {
+                int count = 0;
+                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                string sql_insert2 = "select * from Favorites_2021 where userid1 = @userid1 and episode_id1 = @episode_id1";
+                SqlCommand cmd = new SqlCommand(sql_insert2, con);
+                cmd.Parameters.AddWithValue("@userid1", id);
+                cmd.Parameters.AddWithValue("@episode_id1", episode.Id);
+
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+                
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    count++;
+                }
+                if(count == 0)
+                {
+                    
+                    return addToFav(episode, id);
+                }
+                else
+                {
+                   return 0;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+
+        }
         public int addToFav(Episode episode,int id)
         {
             
@@ -233,10 +283,10 @@ namespace HW_1.Models.DAL
             SqlCommand cmd = new SqlCommand(CommandText, con);
             cmd.Parameters.AddWithValue("@userid1", id);
             cmd.Parameters.AddWithValue("@episode_id1", episode.Id);
-            
 
+            
             try
-            {
+            {          
                 int numEffected = cmd.ExecuteNonQuery(); // execute the command
                 return numEffected;
             }

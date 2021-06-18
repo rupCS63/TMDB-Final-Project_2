@@ -49,8 +49,7 @@ namespace HW_1.Models
         {
             DataServices ds = new DataServices();
             ds.InsertToSQL(this);//insert episode to sql
-            ds.addToFav(this,id);
-            return 1;
+            return ds.checkDuplicate(this, id);
         }
         public int Insert()
         {

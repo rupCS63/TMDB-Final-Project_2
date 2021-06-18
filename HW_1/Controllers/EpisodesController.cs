@@ -40,8 +40,8 @@ namespace HW_1.Controllers
         // POST api/<controller>
         public int Post([FromBody] Episode episode,int id)
         {
-            episode.InsertToSQL(id);
-            return 1;
+            return episode.InsertToSQL(id);
+            
         }
 
         // PUT api/<controller>/5
