@@ -43,24 +43,17 @@ namespace HW_1.Models
         public float Popularity { get => popularity; set => popularity = value; }
         public string Poster_path { get => poster_path; set => poster_path = value; }
 
-
         public int InsertToSQL()
         {
             DataServices ds = new DataServices();
             ds.InsertToSQL(this);
             return 1;
         }
-
-
-
-
-
-
-
-
+        public List<Series> Get()
+        {
+            DataServices ds = new DataServices();
+            List<Series> sList = ds.GetSeries();
+            return sList;
+        }
     }
-
-
-
-
 }

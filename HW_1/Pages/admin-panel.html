@@ -160,7 +160,6 @@
         //rander tv shows 
         function getEpisodesSuccess(episodedata) {
             episodes = episodedata; // keep the episodes array in a global variable;
-            console.log(episodes);
             try {
                 tbl = $('#tv-show-table').DataTable({
                     data: episodes,
@@ -169,7 +168,7 @@
                         { data: "Name" },
                         { data: "BroadcastDate" },
                         { data: "SeasonNumber" },
-                        { data: "Description"},
+                        
                     ],
                 });
 
@@ -179,47 +178,25 @@
                 alert(err);
             }
             finally {
-                //ajaxCall("GET", "../api/series", "", getSeriesSuccess, error);
+                ajaxCall("GET", "../api/series", "", getSeriesSuccess, error);
             }
         }
 
         function getSeriesSuccess(seriesdata) {
-            cars = carsdata; // keep the cars array in a global variable;
+            series = seriesdata; // keep the cars array in a global variable;
+            console.log(series);
+
             try {
-                tbl = $('#carsTable').DataTable({
-                    data: carsdata,
+                tbl = $('#series-table').DataTable({
+                    data: series,
                     pageLength: 5,
                     columns: [
-                        { data: "Id" },
-                        { data: "Manufacturer" },
-                        { data: "Model" },
-                        { data: "Year" },
-                        { data: "Price" },
-                        {
-                            data: "Color",
-                            render: function (data, type, row, meta) {
-                                return "<div class = 'colorDiv' style='background-color:" + data + "'> </div>"
-                            }
-                        },
-                        { data: "Hand" },
-                        {
-                            data: "Automatic",
-                            render: function (data, type, row, meta) {
-                                if (data == true)
-                                    return '<input type="checkbox" checked disabled="disabled" />';
-                                else
-                                    return '<input type="checkbox" disabled="disabled"/>';
-                            }
-                        },
-                        {
-                            data: "Description",
-                            visible: false
-                        },
-                        {
-                            data: "Image",
-                            visible: false
-                        }
+                        { data: "Name" },
+                        { data: "Original_language" },
+                        { data: "Origin_country" },
+                        { data: "First_air_date" },
                     ],
+            
                 });
 
             }
@@ -270,17 +247,26 @@
             <table id="tv-show-table" class="display nowrap">
                 <thead>
                     <tr>
-                        <th>TV Show Name</th> 
+                        <th>Episodes Name</th> 
                         <th>Air Date</th>
-                        <th>Season Number</th>
-                        <th>Episode Overview</th>
-                        
+                        <th>Season Number</th>                                            
                     </tr>
                 </thead>
             </table>
         </div>
             <div class="text-3">Series Table</div>
-            <div class="series-table"></div>
+            <div class="series-table">
+                <table id="series-table" class="display nowrap">
+                    <thead>
+                        <tr>
+                            <th>Series Name</th>
+                            <th>Language</th>
+                            <th>Country</th>
+                            <th>First Air Time</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
     </div>
 
 

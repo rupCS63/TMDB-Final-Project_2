@@ -11,15 +11,17 @@ namespace HW_1.Controllers
     public class SeriesController : ApiController
     {
         // GET api/<controller>
-        public IEnumerable<string> Get()
+        public IEnumerable<Series> Get()
         {
-            return new string[] { "value1", "value2" };
+            Series series = new Series();
+            List<Series> seriesList = series.Get();
+            return seriesList;
         }
 
         // GET api/<controller>/5
         public string Get(int id)
         {
-            return "value";
+            return "Error";
         }
 
         // POST api/<controller>

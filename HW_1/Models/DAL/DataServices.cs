@@ -17,13 +17,10 @@ namespace HW_1.Models.DAL
         public SqlDataAdapter da;
         public DataTable dt;
 
-
-
         public DataServices()
         {
 
         }
-
         //--------------------------------------------------------------------------------------------------
         // This method creates a connection to the database according to the connectionString name in the web.config 
         //--------------------------------------------------------------------------------------------------
@@ -35,7 +32,6 @@ namespace HW_1.Models.DAL
             con.Open();
             return con;
         }
-
         //--------------------------------------------------------------------
         // Build the Insert command String
         //--------------------------------------------------------------------
@@ -108,7 +104,6 @@ namespace HW_1.Models.DAL
             }
             
         }
-
         private SqlCommand CreateCommand(SqlCommand cmd, SqlConnection con)
         {
 
@@ -171,7 +166,6 @@ namespace HW_1.Models.DAL
 
             }
         }
-
         public User validLoginFromDB(string mail, string password)
         {
             SqlConnection con = null;
@@ -217,9 +211,7 @@ namespace HW_1.Models.DAL
 
             }
 
-        }
-        
-
+        }       
         public int addToFav(Episode episode,int id)
         {
             
@@ -266,7 +258,6 @@ namespace HW_1.Models.DAL
                 }
             }
         }
-
         public int InsertToSQL<T>(T obj)
         {
             SqlCommand sendCmd = new SqlCommand();
@@ -307,7 +298,6 @@ namespace HW_1.Models.DAL
                 }
             }
         }
-
         public int InsertUserDS(User user)
         {
             Console.WriteLine("InsertUser - dataservise.cs step 3");
@@ -375,6 +365,52 @@ namespace HW_1.Models.DAL
 
             }
         }
+        public List<Series> GetSeries()
+        {
+            SqlConnection con = null;
+            List<Series> seriesesList = new List<Series>();
+
+            try
+            {
+                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+
+                String selectSTR = "SELECT * FROM Series_2021";
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    Series s = new Series();
+                    s.Id = (int)dr["id"];
+                    s.Name = (string)dr["name"];
+                    s.First_air_date =  dr["first_air_date"].ToString();
+                    s.Origin_country = (string)dr["origin_country"];
+                    s.Original_language = (string)dr["original_language"];
+                    s.Overview = (string)dr["overview"];
+                    s.Popularity = (float)Convert.ToDouble(dr["popularity"]);
+                    s.Poster_path = (string)dr["poster_path"];
+
+                    seriesesList.Add(s);
+                }
+
+                return seriesesList;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+        }
         public List<Episode> GetEpisodeByTvName(string tvName, string user_id)
         {
             SqlConnection con = null;
@@ -426,8 +462,6 @@ namespace HW_1.Models.DAL
 
             }
         }
-
-
         public List<Episode> GetUserEpisodesById(string user_id)
         {
             SqlConnection con = null;
