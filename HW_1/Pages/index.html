@@ -284,19 +284,17 @@
             episodnum = i;
         }
         function postEpisod(i) {
-            console.log(epi.episodes[i]);
+
           let episodeObj = {
           Id: epi.episodes[i].id,
           SeriesId: curr_tvshow.id,
-              Name: gSeason.name,
-          
+          Name: gSeason.name,
           SeasonNumber: seasonNumber,
-          EpisodeName: epi.episodes[i].name, //
+          EpisodeName: epi.episodes[i].name,
           Img: "https://image.tmdb.org/t/p/w500" + epi.episodes[i].still_path,
           Description: epi.episodes[i].overview,
           BroadcastDate: epi.episodes[i].air_date,
-            };
-            
+        };
         var user_id = JSON.parse(localStorage.getItem('user-login')).Id;
         let api = "../api/Episodes?id="+user_id;
         ajaxCall("POST",api,JSON.stringify(episodeObj),postEpisodSuccessCB,postEpisodErrorCB);
