@@ -6,7 +6,7 @@
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" href="../Scripts/myCSS.css">
-    <link rel="stylesheet" href="myCSS.css">
+    <!--<link rel="stylesheet" href="myCSS.css">-->
 
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -204,7 +204,7 @@
             tvId = tv.results[0].id;
             let poster = imagePath + tv.results[0].poster_path;
             str = "<img class='tv-show-img' src='" + poster + "'/>";
-            $(".content").html(str);//image of TV SHOW after search
+            $(".tv-show-image").html(str);//image of TV SHOW after search
             let method = "3/tv/";
             let api_key = "api_key=" + key;
             let apiCall = url + method + tvId + "?" + api_key; //^ change seasson 1 to multi
@@ -213,7 +213,7 @@
         }
 
         function renderSeason(season) {
-            $("#seasonredner").html(
+            $(".season-render").html(
                 '<select onchange="getEpisode(this.value);" name="Seasons" id="seasonselect"></select>'
             );
             for (var i = 0; i < season.seasons.length; i++) {
@@ -365,14 +365,14 @@
     <div class="wellcome">
        <div id="welcome-user"></div> 
     </div>
-    <div class="Admin-BTN"></div>
     <div class="disconnect-btn">
        <button onclick="document.getElementById('id01').style.display='block'"
-      class="w3-button w3-green w3-large btn-block"
+      class="myButton"
       id="disconnect-btn">
   Disconnect
 </button> 
 </div>
+      <div class="admin-panel-btn"></div>
   </div>
   <div class="search">
     <div class="search-text">
@@ -393,7 +393,16 @@
     </button> 
     </div>
   </div>
-  <div class="content"></div>
+  <div class="content">
+      <div class="tv-show-image"></div>
+      <div class="tv-show-name"></div>
+      <div class="tv-show-overview"></div>
+      <div class="season-render"></div>
+      <div class="chat"></div>
+      <div class="render-episodes"></div>
+      <div class="quizz-btn"></div>
+      <div class="render-recommendations"></div>
+  </div>
   <div class="made-by"></div>
 </div>
 <!-- GRID END -->
