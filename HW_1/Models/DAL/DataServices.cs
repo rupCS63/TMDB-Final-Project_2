@@ -21,9 +21,8 @@ namespace HW_1.Models.DAL
         {
 
         }
-        //--------------------------------------------------------------------------------------------------
-        // Connect- This method creates a connection to the database according to the connectionString name in the web.config 
-        //--------------------------------------------------------------------------------------------------
+        // Connect- This method creates a connection to the database according to the.. 
+        //..connectionString name in the web.config 
         public SqlConnection connect(String conString)
         {
             // read the connection string from the configuration file
@@ -33,9 +32,7 @@ namespace HW_1.Models.DAL
             return con;
         }
 
-        //--------------------------------------------------------------------
         // BuildInsertCommand- Build the Insert command String
-        //--------------------------------------------------------------------
         private SqlCommand BuildInsertCommand(Object Obj, SqlConnection con)
         {
             if (Obj is User)
@@ -106,6 +103,7 @@ namespace HW_1.Models.DAL
 
         }
 
+        //create SQL command 
         private SqlCommand CreateCommand(SqlCommand cmd, SqlConnection con)
         {
 
@@ -118,6 +116,8 @@ namespace HW_1.Models.DAL
 
             return cmd;
         }
+        
+        //Get the Whole Usrer_2021 table
         public List<User> GetUsers()
         {
             SqlConnection con = null;
@@ -168,6 +168,8 @@ namespace HW_1.Models.DAL
 
             }
         }
+        
+        //Valid user login
         public User validLoginFromDB(string mail, string password)
         {
             SqlConnection con = null;
@@ -214,6 +216,8 @@ namespace HW_1.Models.DAL
             }
 
         }
+        
+        //Check in insreting an episode if its already in the Favoritae_2021 - PER USER!
         public int checkDuplicate(Episode episode, int id)
         {
             SqlConnection con = null;
@@ -263,6 +267,8 @@ namespace HW_1.Models.DAL
             }
 
         }
+
+        //Add to Favorites_2021 a loved episode
         public int addToFav(Episode episode, int id)
         {
 
@@ -309,6 +315,8 @@ namespace HW_1.Models.DAL
                 }
             }
         }
+       
+        //Insert SQL command
         public int InsertToSQL<T>(T obj)
         {
             SqlCommand sendCmd = new SqlCommand();
@@ -349,9 +357,11 @@ namespace HW_1.Models.DAL
                 }
             }
         }
+        
+        //Add User to the databse
         public int InsertUserDS(User user)
         {
-            Console.WriteLine("InsertUser - dataservise.cs step 3");
+            Console.WriteLine("InsertUser - dataservise.cs step 3"); //^
 
             if (userList == null)
                 userList = new List<User>();
@@ -360,6 +370,8 @@ namespace HW_1.Models.DAL
 
             return 1;
         }
+
+        //Insert an episode to the database
         public int Insert(Episode episode)
         {
             if (episodeList == null)
@@ -369,6 +381,8 @@ namespace HW_1.Models.DAL
 
             return 1;
         }
+
+        //Get episodes from Episodes_2021 table. Return with likes per episode
         public List<Episode> GetEpisode()
         {
             SqlConnection con = null;
@@ -417,6 +431,8 @@ namespace HW_1.Models.DAL
 
             }
         }
+
+        //Dictionary of liked series. Sum all the episodes in the series
         public IDictionary<string, int> GetEpisodeLikes()//series
             {
                 
@@ -509,6 +525,8 @@ namespace HW_1.Models.DAL
             }
 
         }
+
+        //Get series from Series_2021. Return also with how much users liked episodes IN per series
         public List<Series> GetSeries()
             {
                 SqlConnection con = null;
@@ -557,6 +575,8 @@ namespace HW_1.Models.DAL
 
                 }
             }
+        
+        //Get an episode by its name
         public List<Episode> GetEpisodeByTvName(string tvName, string user_id)
             {
                 SqlConnection con = null;
@@ -608,8 +628,10 @@ namespace HW_1.Models.DAL
 
                 }
             }
+        
+        //Get episodes by its user id
         public List<Episode> GetUserEpisodesById(string user_id)
-            {
+        {
                 SqlConnection con = null;
 
                 try
@@ -622,7 +644,6 @@ namespace HW_1.Models.DAL
                                         + " ON e.episode_id = f.episode_id1"
                                         + " WHERE f.userid1 = " + "'" + user_id + "'";
                     SqlCommand cmd = new SqlCommand(selectSTR, con);
-
 
                     // get a reader
                     SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
@@ -639,10 +660,8 @@ namespace HW_1.Models.DAL
                         e.BroadcastDate = Convert.ToDateTime(dr["air_date"]).ToString();
 
                         listOfepisodes.Add(e);
-
                     }
                     return listOfepisodes;
-
                 }
                 catch (Exception ex)
                 {
@@ -652,12 +671,10 @@ namespace HW_1.Models.DAL
                 finally
                 {
                     if (con != null)
-
                     {
                         con.Close();
                     }
-
                 }
-            }
+        }
     }
 }
