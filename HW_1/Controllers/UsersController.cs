@@ -24,7 +24,7 @@ namespace HW_1.Controllers
         {
             DataServices ds = new DataServices();
             User user = ds.validLoginFromDB( mail, password);
-            if(user != null)
+            if(user.Id > 0)
             {
                 return Request.CreateResponse(HttpStatusCode.OK, user);
             }

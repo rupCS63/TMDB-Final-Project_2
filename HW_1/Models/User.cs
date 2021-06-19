@@ -41,6 +41,7 @@ namespace HW_1.Models
             this.isAdmin = isAdmin;
         }
 
+        public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string LastName { get => lastName; set => lastName = value; }
         public string Email { get => email; set => email = value; }
@@ -50,7 +51,6 @@ namespace HW_1.Models
         public int YearBirth { get => yearBirth; set => yearBirth = value; }
         public string Genre { get => genre; set => genre = value; }
         public string Address { get => address; set => address = value; }
-        public int Id { get => id; set => id = value; }
         public bool IsAdmin { get => isAdmin; set => isAdmin = value; }
 
         public List<User> GetUsers()
