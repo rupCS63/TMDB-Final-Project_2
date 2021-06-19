@@ -1,14 +1,11 @@
 
-  #ph > img {
+.tv-show-img {
     height: 300px;
-  }
+    width: 200px;
+}
   body{
     align-content: center;
     
-  }
-  #seasonredner,
-  #ph {
-    margin-left: 20px;
   }
   h6{
       margin-left:auto;
@@ -23,7 +20,7 @@
   }
   .content{
     background-image: linear-gradient(0deg, #2af598 0%, #009efd 100%);
-  } 
+  }
   .Menu{
     margin-bottom: 1px;
     background-color: #000000;
@@ -67,10 +64,9 @@
 	top:1px;
 }
  
-
-
+        
 /* GRID START */
-.gcontainer {
+.container {
   display: grid;
   grid-template-columns: 0.2fr 1.6fr 1.4fr 1.7fr 0.2fr;
   grid-template-rows: 0.7fr 0.9fr 1.4fr 1fr 1.7fr 0.3fr;

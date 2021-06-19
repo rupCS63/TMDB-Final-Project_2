@@ -5,14 +5,14 @@
     <title></title>
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="../Scripts/myCSS.css">
     <link rel="stylesheet" href="myCSS.css">
-
 
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous"
-    ></script>
+      ></script>
     <script src="../Scripts/ajaxCalls.js"></script>
     <link
       rel="stylesheet"
@@ -203,8 +203,8 @@
             curr_tvshow = tv.results[0]
             tvId = tv.results[0].id;
             let poster = imagePath + tv.results[0].poster_path;
-            str = "<img src='" + poster + "'/>";
-            $("#ph").html(str);
+            str = "<img class='tv-show-img' src='" + poster + "'/>";
+            $(".content").html(str);//image of TV SHOW after search
             let method = "3/tv/";
             let api_key = "api_key=" + key;
             let apiCall = url + method + tvId + "?" + api_key; //^ change seasson 1 to multi
@@ -233,8 +233,6 @@
             let temp = value.split("|");
             seasonNumber = temp[0];
             let tvID = temp[1];
-            //console.log(seasonNumber)
-            //console.log(tvID)
             let method = "3/tv/";
             let method2 = "/season/";
 
@@ -253,15 +251,15 @@
 
         function getEpisodeSuccessCB(episod) {
             epi = episod;
-            $(".container").html("");
+            $(".content").html("");
             for (var i = 0; i < episod.episodes.length; i++) {
                 x = JSON.stringify(curr_tvshow).split("'").join('')
 
 
                 poster =
                     "https://image.tmdb.org/t/p/w500" + episod.episodes[i].still_path;
-                imgURL = "<img src='" + poster + "'/>";
-                $(".container").append(
+                imgURL = "<img id='poster' src='" + poster + "'/>";
+                $(".content").append(
                     "<div>Name: " +
                     episod.episodes[i].name +
                     "</div>" +
@@ -336,8 +334,10 @@
     </script>
   </head>
   <body>
+
+
 <!-- GRID STRAT -->
-<div class="container">
+<div class="gcontainer">
   <div class="Menu w3-border-bottom">
     <div class="register">
        <button onclick="document.getElementById('id01').style.display='block'"
