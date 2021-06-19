@@ -67,7 +67,7 @@ namespace HW_1.Models.DAL
                 SqlCommand cmd = new SqlCommand(CommandText, con);
                 cmd.Parameters.AddWithValue("@series_id", temp.SeriesId);
                 cmd.Parameters.AddWithValue("@episode_id", temp.Id);
-                cmd.Parameters.AddWithValue("@episode_name", temp.Name);
+                cmd.Parameters.AddWithValue("@episode_name", temp.EpisodeName);
                 cmd.Parameters.AddWithValue("@air_date", temp.BroadcastDate);
                 cmd.Parameters.AddWithValue("@episode_overeview", temp.Description);
                 cmd.Parameters.AddWithValue("@poster_path", temp.Img);
