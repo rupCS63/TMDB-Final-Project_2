@@ -433,7 +433,7 @@ namespace HW_1.Models.DAL
         }
 
         //Dictionary of liked series. Sum all the episodes in the series
-        public IDictionary<string, int> GetEpisodeLikes()//series
+        public IDictionary<int, int> GetEpisodeLikes()//series
             {
                 
                 SqlConnection con = null;
@@ -443,7 +443,7 @@ namespace HW_1.Models.DAL
                     con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
                                                           //IDictionary<string, int> episodeLikes = new Dictionary<string, int>();
 
-                    Dictionary<string, int> episodeLikes = new Dictionary<string, int>();
+                    Dictionary<int, int> episodeLikes = new Dictionary<int, int>();
                     String selectSTR = "SELECT * FROM Episodes_2021";
                     SqlCommand cmd = new SqlCommand(selectSTR, con);
 
@@ -451,13 +451,13 @@ namespace HW_1.Models.DAL
                     SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
                 while (dr.Read())
                     {   // Read till the end of the data into a row
-                    if (episodeLikes.ContainsKey((string)dr["episode_name"]) == true)
+                    if (episodeLikes.ContainsKey((int)dr["series_id"]) == true)
                     {
-                        episodeLikes[(string)dr["episode_name"]] += 1;
+                        episodeLikes[(int)dr["series_id"]] += 1;
                     }
                     else
                     {
-                        episodeLikes.Add((string)dr["episode_name"], 1);
+                        episodeLikes.Add((int)dr["series_id"], 1);
 
                     }
                 }
@@ -537,7 +537,7 @@ namespace HW_1.Models.DAL
                     con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
                                                          //IDictionary<string, int> episodeLikes = new Dictionary<string, int>();
 
-                    IDictionary<string, int> episodeLikes = GetEpisodeLikes();
+                    IDictionary<int, int> episodeLikes = GetEpisodeLikes();
                     String selectSTR = "SELECT * FROM Series_2021";
                     SqlCommand cmd = new SqlCommand(selectSTR, con);
 
@@ -555,7 +555,7 @@ namespace HW_1.Models.DAL
                         s.Overview = (string)dr["overview"];
                         s.Popularity = (float)Convert.ToDouble(dr["popularity"]);
                         s.Poster_path = (string)dr["poster_path"];
-                        s.Likes = episodeLikes[(string)dr["name"]];
+                        s.Likes = episodeLikes[(int)dr["id"]]; //SHOW HERE NUM OF LIKES FROM DIC
                         seriesesList.Add(s);
                     }
 
