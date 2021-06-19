@@ -18,13 +18,14 @@ namespace HW_1.Models
         string img;
         string description;
         string broadcastDate;
+        int likes;
 
         //---------constructors-------
         public Episode()
         {
 
         }
-        public Episode(int id,int seriesId, string name, int seasonNumber, string episodeName, string img, string description, string broadcastDate)
+        public Episode(int id,int seriesId, string name, int seasonNumber, string episodeName, string img, string description, string broadcastDate, int likes)
         {
             this.id = id;
             this.SeriesId = seriesId;
@@ -34,6 +35,7 @@ namespace HW_1.Models
             this.img = img;
             this.description = description;
             this.broadcastDate = broadcastDate;
+            this.Likes = likes;
         }
         //properties
         public string Name { get => name; set => name = value; }
@@ -44,6 +46,7 @@ namespace HW_1.Models
         public string BroadcastDate { get => broadcastDate; set => broadcastDate = value; }
         public int Id { get => id; set => id = value; }
         public int SeriesId { get => seriesId; set => seriesId = value; }
+        public int Likes { get => likes; set => likes = value; }
 
         public int InsertToSQL(int id)
         {

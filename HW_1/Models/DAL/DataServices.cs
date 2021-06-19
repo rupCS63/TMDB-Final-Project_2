@@ -22,7 +22,7 @@ namespace HW_1.Models.DAL
 
         }
         //--------------------------------------------------------------------------------------------------
-        // This method creates a connection to the database according to the connectionString name in the web.config 
+        // Connect- This method creates a connection to the database according to the connectionString name in the web.config 
         //--------------------------------------------------------------------------------------------------
         public SqlConnection connect(String conString)
         {
@@ -32,8 +32,9 @@ namespace HW_1.Models.DAL
             con.Open();
             return con;
         }
+
         //--------------------------------------------------------------------
-        // Build the Insert command String
+        // BuildInsertCommand- Build the Insert command String
         //--------------------------------------------------------------------
         private SqlCommand BuildInsertCommand(Object Obj, SqlConnection con)
         {
@@ -104,6 +105,7 @@ namespace HW_1.Models.DAL
             }
 
         }
+
         private SqlCommand CreateCommand(SqlCommand cmd, SqlConnection con)
         {
 
@@ -212,7 +214,6 @@ namespace HW_1.Models.DAL
             }
 
         }
-        //checkDuplicate
         public int checkDuplicate(Episode episode, int id)
         {
             SqlConnection con = null;
@@ -372,6 +373,7 @@ namespace HW_1.Models.DAL
         {
             SqlConnection con = null;
             List<Episode> episodesList = new List<Episode>();
+            IDictionary<int, int> episodeLikes = GetEpisodeLikesReal();
 
             try
             {
@@ -393,6 +395,8 @@ namespace HW_1.Models.DAL
                     ep.Description = (string)dr["episode_overeview"];
                     ep.BroadcastDate = dr["air_date"].ToString();
                     ep.SeasonNumber = Convert.ToInt32(dr["season_number"]);
+                    //insert here likes per episode
+                    ep.Likes = episodeLikes[(int)dr["episode_id"]];
 
                     episodesList.Add(ep);
                 }
@@ -413,7 +417,7 @@ namespace HW_1.Models.DAL
 
             }
         }
-            public IDictionary<string, int> GetEpisodeLikes()
+        public IDictionary<string, int> GetEpisodeLikes()//series
             {
                 
                 SqlConnection con = null;
@@ -459,8 +463,53 @@ namespace HW_1.Models.DAL
                 }
 
             }
+        public IDictionary<int, int> GetEpisodeLikesReal()
+        {
 
-            public List<Series> GetSeries()
+            SqlConnection con = null;
+            List<Series> seriesesList = new List<Series>();
+            try
+            {
+                con = connect("DBConnectionString"); // create a connection to the database using the connection String defined in the web config file
+                                                     //IDictionary<string, int> episodeLikes = new Dictionary<string, int>();
+
+                Dictionary<int, int> episodeLikes = new Dictionary<int, int>();
+                String selectSTR = "SELECT * FROM Favorites_2021";
+                SqlCommand cmd = new SqlCommand(selectSTR, con);
+
+                // get a reader
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection); // CommandBehavior.CloseConnection: the connection will be closed after reading has reached the end
+                while (dr.Read())
+                {   // Read till the end of the data into a row
+                    if (episodeLikes.ContainsKey((int)dr["episode_id1"]) == true)
+                    {
+                        episodeLikes[(int)dr["episode_id1"]] += 1;
+                    }
+                    else
+                    {
+                        episodeLikes.Add((int)dr["episode_id1"], 1);
+
+                    }
+                }
+
+                return episodeLikes;
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+            finally
+            {
+                if (con != null)
+                {
+                    con.Close();
+                }
+
+            }
+
+        }
+        public List<Series> GetSeries()
             {
                 SqlConnection con = null;
                 List<Series> seriesesList = new List<Series>();
@@ -508,7 +557,7 @@ namespace HW_1.Models.DAL
 
                 }
             }
-            public List<Episode> GetEpisodeByTvName(string tvName, string user_id)
+        public List<Episode> GetEpisodeByTvName(string tvName, string user_id)
             {
                 SqlConnection con = null;
 
@@ -559,7 +608,7 @@ namespace HW_1.Models.DAL
 
                 }
             }
-            public List<Episode> GetUserEpisodesById(string user_id)
+        public List<Episode> GetUserEpisodesById(string user_id)
             {
                 SqlConnection con = null;
 
@@ -610,7 +659,5 @@ namespace HW_1.Models.DAL
 
                 }
             }
-
-        }
-
     }
+}
