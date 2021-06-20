@@ -86,8 +86,9 @@ h6#episod-date {
     font-family: unset;
 }
 .tv-show-name {
-    font-size: 25px;
-    font-weight: 700;
+    grid-area: tv-show-name;
+    color: white;
+    font-size: 30px;
 }
 .tv-show-img {
     height: 350px;
@@ -95,14 +96,8 @@ h6#episod-date {
     margin-left: 25%;
 }
 
-.content {
-    box-shadow: 6px 12px 10px 4px rgb(54 53 53 / 58%);
-    background-image: linear-gradient(0deg, #2af598 0%, #009efd 100%);
-    height: 100%;
-}
 .search {
-    margin-top: -11px;
-    box-shadow: 5px 5px 10px 4px rgb(54 53 53 / 58%);
+    background-image: linear-gradient(180deg, #000000c2 0%, #009efd 100%);
 }
 
 .scrollbar {
@@ -242,6 +237,9 @@ h6#episod-date {
         "render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations"
         "render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations";
     grid-area: content;
+    box-shadow: 6px 12px 10px 4px rgb(54 53 53 / 58%);
+    background-image: linear-gradient(0deg, #000000fc 0%, #009efd 100%);
+    height: 100%;
 }
 
 .render-episodes {
