@@ -43,6 +43,15 @@ body {
   #tvShowName{
     margin-left: 10%;
   }
+#poster {
+    width: 100%;
+    height: 50%;
+    box-shadow: 5px 5px 10px 4px rgb(54 53 53 / 58%);
+}
+h6#episod-name {
+    margin-left: 5px;
+    margin-top: 5px;
+}
   
   .myButton {
   background-color: #0059fd;
@@ -67,8 +76,49 @@ body {
 	position:relative;
 	top:1px;
 }
- 
-        
+
+
+
+.scrollbar {
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    background: #0808081c;
+    margin-bottom: 25px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    width: 90%;
+}
+
+
+#style-15::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+#style-15::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+#style-15::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: #FFF;
+    background-image: -webkit-gradient(linear, 40% 0%, 75% 84%, from(#000000), to(rgb(0, 0, 0)), color-stop(.6,#000000))
+}
+
+.episodecard {
+    display: inline-block;
+    width: 300px;
+    height: 275px;
+    box-shadow: #2af598;
+    margin-right: 15px;
+    box-shadow: 5px 5px 10px 4px rgb(54 53 53 / 58%);
+    background-color: white;
+}
+
 /* GRID START */
 .gcontainer {
     display: grid;
@@ -202,5 +252,8 @@ body {
 .render-recommendations {
     grid-area: render-recommendations;
 }
+
+
+
 
   /* GRID END */

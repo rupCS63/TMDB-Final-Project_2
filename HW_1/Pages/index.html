@@ -269,7 +269,10 @@
 
         function getEpisodeSuccessCB(episod) {
             epi = episod;
-            $(".content").html("");
+            $(".render-episodes").html(`<div class="scrollbar" id="style-15">
+            <div class="force-overflow">
+            </div>
+            </div>`);
             for (var i = 0; i < episod.episodes.length; i++) {
                 x = JSON.stringify(curr_tvshow).split("'").join('')
 
@@ -277,22 +280,28 @@
                 poster =
                     "https://image.tmdb.org/t/p/w500" + episod.episodes[i].still_path;
                 imgURL = "<img id='poster' src='" + poster + "'/>";
-                $(".content").append(
-                    "<div>Name: " +
-                    episod.episodes[i].name +
-                    "</div>" +
-                    "<div>" +
-                    imgURL +
-                    "</div>" +
-                    "<div>Overview: " +
-                    episod.episodes[i].overview +
-                    "</div>" +
-                    "<div>Air Date: " +
-                    episod.episodes[i].air_date +
-                    "</div>" +
-                    "<button onclick='savenumber(" + i + ");postSeries(" + x + ")'; type='button' class='btn btn-success'>Add Episode</button>" +
-                    "<br>" +
-                    "<br>"
+                $(".force-overflow").append(
+                    `<div class="episodecard"> ${imgURL} 
+                        <h6 id="episod-name">${episod.episodes[i].name}</h6>
+
+                    </div>`
+
+                    
+                    //"<div>Name: " +
+                    //episod.episodes[i].name +
+                    //"</div>" +
+                    //"<div>" +
+                    //imgURL +
+                    //"</div>" +
+                    //"<div>Overview: " +
+                    //episod.episodes[i].overview +
+                    //"</div>" +
+                    //"<div>Air Date: " +
+                    //episod.episodes[i].air_date +
+                    //"</div>" +
+                    //"<button onclick='savenumber(" + i + ");postSeries(" + x + ")'; type='button' class='btn btn-success'>Add Episode</button>" +
+                    //"<br>" +
+                    //"<br>"
                 );
             }
         }
@@ -419,7 +428,10 @@
       <div class="tv-show-overview"></div>
       <div class="season-render">         </div>
       <div class="chat"></div>
-      <div class="render-episodes"> </div>
+      <div class="render-episodes">
+          <div class="scrolling-wrapper">
+          </div>
+      </div>
       <div class="quizz-btn"></div>
       <div class="render-recommendations"></div>
   </div>
