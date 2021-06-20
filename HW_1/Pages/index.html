@@ -234,6 +234,8 @@
             $(".season-render").html(
                 '<select onchange="getEpisode(this.value);" name="Seasons" id="seasonselect"></select>'
             );
+            $(".tv-show-name").html(gSeason.name);
+            $(".tv-show-overview").html(gSeason.overview);
             for (var i = 0; i < season.seasons.length; i++) {
                 $("#seasonselect").append(
                     "<option value=" +
@@ -282,7 +284,10 @@
                 imgURL = "<img id='poster' src='" + poster + "'/>";
                 $(".force-overflow").append(
                     `<div class="episodecard"> ${imgURL} 
-                        <h6 id="episod-name">${episod.episodes[i].name}</h6>
+                        <h4 id="episod-name">${episod.episodes[i].name}</h4>
+                        <h6 id="episod-date">${episod.episodes[i].air_date}</h6>
+                        <button onclick='savenumber(${i});postSeries(${x})'; type='button' id="addtofav-btn" class='myButton'>Add to favorite</button>
+                        
 
                     </div>`
 

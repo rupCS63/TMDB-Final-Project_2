@@ -1,9 +1,5 @@
 
-.tv-show-img {
-    height: 300px;
-    width: 200px;
-    padding-left:10px;
-}
+
 #welcome-user{
     color:white;
 }
@@ -20,10 +16,6 @@ body {
   }
   .search{
     background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%);
-  }
-  .content{
-    background-image: linear-gradient(0deg, #2af598 0%, #009efd 100%);
-    height:100%;
   }
   .Menu{
     margin-bottom: 1px;
@@ -52,22 +44,23 @@ h6#episod-name {
     margin-left: 5px;
     margin-top: 5px;
 }
-  
-  .myButton {
-  background-color: #0059fd;
-	border-radius:28px;
-	border:1px solid #009cfd85;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial, Helvetica, sans-serif;
-	font-size:17px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #2f6627;
-  margin-left:10px;
-  
-    
-  }
+
+
+
+.myButton {
+    background-color: #0059fd;
+    border-radius: 28px;
+    border: 1px solid #009cfd85;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #2f6627;
+    margin-left: 10px;
+
+}
 
   .myButton:hover {
     background-color:#0059fda4;
@@ -76,8 +69,41 @@ h6#episod-name {
 	position:relative;
 	top:1px;
 }
+ /*rules*/
+select#seasonselect {
+    width: 100%;
+}
+button#addtofav-btn {
+    margin-left: 55%;
+    margin-top: 10%;
+}
+h4#episod-name {
+    margin-top: 10px;
+    font-size: 17px;
+}
+h6#episod-date {
+    margin-left: 3px;
+    font-family: unset;
+}
+.tv-show-name {
+    font-size: 25px;
+    font-weight: 700;
+}
+.tv-show-img {
+    height: 350px;
+    width: 60%;
+    margin-left: 25%;
+}
 
-
+.content {
+    box-shadow: 6px 12px 10px 4px rgb(54 53 53 / 58%);
+    background-image: linear-gradient(0deg, #2af598 0%, #009efd 100%);
+    height: 100%;
+}
+.search {
+    margin-top: -11px;
+    box-shadow: 5px 5px 10px 4px rgb(54 53 53 / 58%);
+}
 
 .scrollbar {
     margin-left: auto;
@@ -123,7 +149,7 @@ h6#episod-name {
 .gcontainer {
     display: grid;
     grid-template-columns: 0.2fr 1.6fr 1.4fr 1.6fr 0.2fr;
-    grid-template-rows: 0.6fr 1fr 1.4fr 1fr 1.7fr 0.3fr;
+    grid-template-rows: 0.6fr 0.4fr 2fr 1fr 1.7fr 0.3fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
@@ -179,7 +205,7 @@ h6#episod-name {
 .search {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 0.8fr 1.1fr 1.1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
@@ -203,17 +229,14 @@ h6#episod-name {
 
 .content {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1.7fr 0.3fr 1.4fr 0.6fr 1fr 1fr 1fr 1.4fr 0.6fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 0px 0px;
     grid-auto-flow: row;
     grid-template-areas:
-        "tv-show-image tv-show-image . . . . chat chat chat chat"
-        "tv-show-image tv-show-image tv-show-name tv-show-name . season-render chat chat chat chat"
-        "tv-show-image tv-show-image . . . . chat chat chat chat"
-        "tv-show-image tv-show-image tv-show-overview tv-show-overview tv-show-overview tv-show-overview chat chat chat chat"
-        "tv-show-image tv-show-image tv-show-overview tv-show-overview tv-show-overview tv-show-overview chat chat chat chat"
-        "tv-show-image tv-show-image . . . quizz-btn chat chat chat chat"
+        "tv-show-image tv-show-image tv-show-name tv-show-name . . season-render chat chat ."
+        "tv-show-image tv-show-image tv-show-overview tv-show-overview tv-show-overview tv-show-overview . chat chat ."
+        "tv-show-image tv-show-image tv-show-overview tv-show-overview tv-show-overview tv-show-overview quizz-btn chat chat ."
         "render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes"
         "render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes"
         "render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations"
@@ -221,36 +244,36 @@ h6#episod-name {
     grid-area: content;
 }
 
-.tv-show-image {
-    grid-area: tv-show-image;
+.render-episodes {
+    grid-area: render-episodes;
+}
+
+.render-recommendations {
+    grid-area: render-recommendations;
 }
 
 .tv-show-name {
     grid-area: tv-show-name;
 }
 
-.tv-show-overview {
-    grid-area: tv-show-overview;
+.chat {
+    grid-area: chat;
 }
 
 .season-render {
     grid-area: season-render;
 }
 
-.chat {
-    grid-area: chat;
-}
-
-.render-episodes {
-    grid-area: render-episodes;
-}
-
 .quizz-btn {
     grid-area: quizz-btn;
 }
 
-.render-recommendations {
-    grid-area: render-recommendations;
+.tv-show-overview {
+    grid-area: tv-show-overview;
+}
+
+.tv-show-image {
+    grid-area: tv-show-image;
 }
 
 
