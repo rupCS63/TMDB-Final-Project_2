@@ -31,12 +31,16 @@
             $("#disconnect-btn").hide();
             $("#disconnect-btn").click(disconnectUser);
 
+            //Randeer popular series by genre (35=comedy)
+            getFavSeries(35);
 
             user = localStorage.getItem("user-login");
             if (user != null) {
                 enterUser(user);
             }
+
             episodnum = 0;
+
             // replace it with your own key -DONE
             key = "1e5a5ee20af326aebb685a34a1868b76";
             img_tmdb = "../Images/img_tmdb.png";
@@ -44,10 +48,24 @@
             imagePath = "https://image.tmdb.org/t/p/w500";
         });
 
+        //Get the most popular series by genre
+        function getFavSeries(genre) {
+            //int genre = genre code
+            //https://api.themoviedb.org/3/discover/tv?api_key=1e5a5ee20af326aebb685a34a1868b76&sort_by=popularity.desc&with_genres=35
 
+            let apiSearch = `https://api.themoviedb.org/3/discover/tv?api_key=1e5a5ee20af326aebb685a34a1868b76&sort_by=popularity.desc&with_genres= ${genre}`; 
 
+            ajaxCall("GET", apiSearch, "", getSeriesPopByGenreSuccessCB, getSeriesPopByGenreErrorCB)
 
-        //-------------------------------exe3
+        }
+
+        function getSeriesPopByGenreSuccessCB(seriesList) {
+            console.log(seriesList);
+        }
+
+        function getSeriesPopByGenreErrorCB() {
+            alert("Error");
+        }
 
         function disconnectUser() {
             localStorage.clear();
@@ -81,12 +99,11 @@
             console.log("Series added")
             postEpisod(episodnum);
         }
+
         function postSeriesErrorCB() {
             console.log("Series error")
 
         }
-
-        //-------------------------------exe3
 
         function userLoginToSystme(user) {
             localStorage.clear();
@@ -112,6 +129,7 @@
                 "<h6>Welcome " + user.Name + " " + user.LastName + "</h6>"
             );
         }
+
         //../api/Users?mail=&password=..
         function loginUser() {
             document.getElementById("id02").style.display = "none";
@@ -128,7 +146,7 @@
         function loginUserErrorCB(e) {
             alert(e.responseJSON);
         }
-        //
+
         function loginUserSuccessCB(user) {
             console.log(user);
             if (user != null) {
@@ -278,9 +296,11 @@
                 );
             }
         }
+
         function savenumber(i) {
             episodnum = i;
         }
+
         function postEpisod(i) {
 
             let episodeObj = {
@@ -397,9 +417,9 @@
       <div class="tv-show-image"></div>
       <div class="tv-show-name"></div>
       <div class="tv-show-overview"></div>
-      <div class="season-render"></div>
+      <div class="season-render">         </div>
       <div class="chat"></div>
-      <div class="render-episodes"></div>
+      <div class="render-episodes"> </div>
       <div class="quizz-btn"></div>
       <div class="render-recommendations"></div>
   </div>
