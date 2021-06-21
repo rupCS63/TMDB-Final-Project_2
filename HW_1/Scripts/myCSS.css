@@ -1,52 +1,97 @@
 
 
-#welcome-user{
-    color:white;
+#welcome-user {
+    color: white;
 }
+
 body {
     align-content: center;
 }
-  h6{
-      margin-left:auto;
-      margin-right:auto;
-  }
-  .container-fluid {
+
+h6 {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.container-fluid {
     margin-top: 20px;
     margin-left: 20px;
-  }
-  .search{
+}
+
+.search {
     background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%);
-  }
-  .Menu{
+}
+
+.Menu {
     margin-bottom: 1px;
     background-color: #000000;
-  }
-  .search-btn{
+}
+
+.search-btn {
     margin-left: 20px;
-  }
-  .logo{
+}
+
+.logo {
     margin: auto;
     padding: 10px 10px;
-  }
-  #icon{
+}
+
+#icon {
     height: 100px;
     width: 100px;
-  }
-  #tvShowName{
+}
+
+#tvShowName {
     margin-left: 10%;
-  }
+}
+
 #poster {
     width: 100%;
     height: 50%;
     box-shadow: 5px 5px 10px 4px rgb(54 53 53 / 58%);
+    border-radius: 10px;
 }
+
 h6#episod-name {
     margin-left: 5px;
     margin-top: 5px;
 }
+/* CHAT STRAT */
+.chat-window {
+    border: 2px rgba(255, 255, 255, 0.486) solid;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #00000073;
+}
 
+#chat-input {
+    margin-top: 100%;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    border-radius: 5px;
+    width: 70%;
+}
 
+.message {
+    font-size: 20px;
+    margin-left: 5px;
+    border: #000000;
+}
 
+#chat-send-btn {
+    margin-left: 20px;
+}
+
+#chat-messages {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border-radius: 10px;
+    background-color: #FFF;
+    height: 45%;
+    width: 21.9%;
+    position: absolute;
+}
+/* CHAT END */
 .myButton {
     background-color: #0059fd;
     border-radius: 28px;
@@ -59,38 +104,44 @@ h6#episod-name {
     text-decoration: none;
     text-shadow: 0px 1px 0px #2f6627;
     margin-left: 10px;
-
 }
 
-  .myButton:hover {
-    background-color:#0059fda4;
+    .myButton:hover {
+        background-color: #0059fda4;
     }
- .myButton:active {
-	position:relative;
-	top:1px;
-}
- /*rules*/
+
+    .myButton:active {
+        position: relative;
+        top: 1px;
+    }
+/*rules*/
 select#seasonselect {
     width: 100%;
 }
+
 button#addtofav-btn {
     margin-left: 55%;
     margin-top: 10%;
 }
+
 h4#episod-name {
     margin-top: 10px;
     font-size: 17px;
 }
+
 h6#episod-date {
     margin-left: 3px;
     font-family: unset;
 }
+
 .tv-show-name {
     grid-area: tv-show-name;
     color: white;
     font-size: 30px;
 }
+
 .tv-show-img {
+    border-radius: 10px;
     height: 350px;
     width: 60%;
     margin-left: 25%;
@@ -138,6 +189,7 @@ h6#episod-date {
     margin-right: 15px;
     box-shadow: 5px 5px 10px 4px rgb(54 53 53 / 58%);
     background-color: white;
+    border-radius: 10px;
 }
 
 /* GRID START */
@@ -277,4 +329,4 @@ h6#episod-date {
 
 
 
-  /* GRID END */
+/* GRID END */
