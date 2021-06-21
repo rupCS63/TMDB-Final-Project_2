@@ -587,9 +587,9 @@ namespace HW_1.Models.DAL
 
                     String selectSTR = "SELECT *"
                                         + " FROM Favorites_2021 as f"
-                                        + " INNER JOIN Episodes_2021 as e"
-                                        + " ON e.episode_id = f.episode_id1"
-                                        + " WHERE f.userid1 = " + "'" + user_id + "'" + " and e.episode_name =" + tvName;
+                                        + " INNER JOIN Episodes_2021 as e ON e.episode_id = f.episode_id1"
+                                        + " INNER JOIN Series_2021 as s ON e.series_id = s.id"
+                                        + " WHERE f.userid1 = " + "'" + user_id + "'" + " and s.name =" + tvName;
                     SqlCommand cmd = new SqlCommand(selectSTR, con);
 
 
@@ -640,8 +640,8 @@ namespace HW_1.Models.DAL
 
                     String selectSTR = "SELECT *"
                                         + " FROM Favorites_2021 as f"
-                                        + " INNER JOIN Episodes_2021 as e"
-                                        + " ON e.episode_id = f.episode_id1"
+                                        + " INNER JOIN Episodes_2021 as e ON e.episode_id = f.episode_id1"
+                                        + " INNER JOIN Series_2021 as s ON e.series_id = s.id"
                                         + " WHERE f.userid1 = " + "'" + user_id + "'";
                     SqlCommand cmd = new SqlCommand(selectSTR, con);
 
@@ -654,7 +654,7 @@ namespace HW_1.Models.DAL
                         e.Id = Convert.ToInt32(dr["episode_id"]);
                         e.SeriesId = Convert.ToInt32(dr["series_id"]);
                         e.SeasonNumber = Convert.ToInt32(dr["season_number"]);
-                        e.EpisodeName = (string)dr["episode_name"];
+                        e.EpisodeName = (string)dr["name"];
                         e.Img = (string)dr["poster_path"];
                         e.Description = (string)dr["episode_overeview"];
                         e.BroadcastDate = Convert.ToDateTime(dr["air_date"]).ToString();
