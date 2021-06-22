@@ -97,7 +97,7 @@ function userLoginToSystme(user) {
         "<h6>Welcome " + user.Name + " " + user.LastName + "</h6>"
     );
     if(user.IsAdmin == true){
-        $(".admin-panel-btn1").show();
+        $("#admin-panel-btn1").show();
     }
 }
 
@@ -111,7 +111,7 @@ function enterUser(user) {
         "<h6>Welcome " + user.Name + " " + user.LastName + "</h6>"
     );
     if(user.IsAdmin == true){
-        $(".admin-panel-btn1").show();
+        $("#admin-panel-btn1").show();
     }
 }
 
