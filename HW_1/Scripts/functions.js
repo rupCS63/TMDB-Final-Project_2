@@ -7,8 +7,6 @@ $(document).ready(function () {
     $("#disconnect-btn").hide();
     $("#disconnect-btn").click(disconnectUser);
 
-    getQuestions();
-
     //Randeer popular series by genre (35=comedy)
     getFavSeries(35);
 
@@ -438,6 +436,8 @@ function printMessages(msgArr){
 // CHAT END
 
 //Quiz:
+
+
 //Quiz function:
 //return array of string: type of answer, question ,picture ,(API) 4 generate answers
 function getQuestions() {
@@ -575,4 +575,63 @@ function e(e){
 }
 function s(obj) {
     console.log(obj);
+}
+
+
+//get: gSeosen (the currenct)
+//return: obj: q,4 answers, answer.
+function sendQ() {
+    //type of qs:
+    //1. number of seasons
+    //2. first air date - year
+    //3. one from the cast
+    //4. what is the name of the charactor
+
+    //generate type of q
+    qType = Math.floor(Math.random() * 3) + 1;
+
+    switch (qType) {
+        case 1: //1. number of seasons
+            objQ = {
+                question: `How much season there are in ${gSeason.Name} ?`,
+                answer: gSeason.number_of_seasons,
+                answers: [(Math.floor(Math.random() * 10) + 1).toString(),
+                (Math.floor(Math.random() * 10) + 1).toString(),
+                (Math.floor(Math.random() * 10) + 1).toString(),
+                gSeason.number_of_seasons
+                ]
+            };
+            break;
+
+        case 2: //2. first air date - year
+            objQ = {
+                question: `When the series was first lanuch?`,
+                answer: gSeason.first_air_date.toString().substring(0, 4),
+                answers: [(Math.floor(Math.random() * 61) + 1960).toString(),
+                    (Math.floor(Math.random() * 61) + 1960).toString(),
+                    (Math.floor(Math.random() * 61) + 1960).toString(),
+                    gSeason.first_air_date.YearBirth
+                ]
+            };
+            break;
+
+        case 3: //3. one from the cast
+            objQ = {
+                question: `How much episodes there are in ${gSeason.Name}`,
+                answer: gSeason.number_of_episodes,
+                answers: [(Math.floor(Math.random() * 250) + 1).toString(),
+                    (Math.floor(Math.random() * 250) + 1).toString(),
+                    (Math.floor(Math.random() * 250) + 1).toString(),
+                    gSeason.number_of_episodes
+                ]
+            };
+            break;
+
+        default:
+            alert("Error");
+            break;
+    } 
+
+    console.log(objQ);
+    return objQ;
 }
