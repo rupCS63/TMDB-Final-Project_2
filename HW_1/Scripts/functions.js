@@ -7,11 +7,14 @@ $(document).ready(function () {
     $("#disconnect-btn").hide();
     $("#disconnect-btn").click(disconnectUser);
     $("#admin-panel-btn1").hide();
-    $('#quizz-btn').hide();
+    $('#quizz-btn1').hide();
     $('.chat').hide();
-
+    
     //Randeer popular series by genre (35=comedy)
-    getFavSeries(35);
+    //getFavSeries(35);
+    $("#quizz-btn1").click(function () {
+        sendQ();
+    });
 
     user = localStorage.getItem("user-login");
     if (user != null) {
@@ -329,8 +332,8 @@ function getSeasonSuccessCB(season) {
    
 }
 function initQuestionbtn(){
-    $('#quizz-btn').show();
-    $('#quizz-btn').html(`Take Question about ${gSeason.name}`)
+    $('#quizz-btn1').show();
+    $('#quizz-btn1').html(`Take Question about ${gSeason.name}`)
 }
 
 function getSeasonErrorCB(err) {
@@ -442,10 +445,10 @@ function printMessages(msgArr){
 var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-var btn = document.getElementById("quizz-btn");
+var btn = document.getElementById("quizz-btn1");
 
 // Get the <span> element that closes the modals
-var span = document.getElementById("close-quiz");
+var span = document.getElementById("send-quiz");
 
 // When the user clicks on the button, open the modal
 btn.onclick = function () {
@@ -465,39 +468,6 @@ window.onclick = function (event) {
 }
 
 
-$(function () {
-    var loading = $('#loadbar').hide();
-    $(document)
-        .ajaxStart(function () {
-            loading.show();
-        }).ajaxStop(function () {
-            loading.hide();
-        });
-
-    $("label.btn").on('click', function () {
-        var choice = $(this).find('input:radio').val();
-        $('#loadbar').show();
-        $('#quiz').fadeOut();
-        setTimeout(function () {
-            $("#answer").html($(this).checking(choice));
-            $('#quiz').show();
-            $('#loadbar').fadeOut();
-            /* something else */
-        }, 1500);
-    });
-
-    $ans = 3;
-
-    $.fn.checking = function (ck) {
-        if (ck != $ans)
-            return 'INCORRECT';
-        else
-            return 'CORRECT';
-    };
-});	
-
-
-
 
 
 
@@ -515,37 +485,38 @@ function sendQ() {
 
     switch (qType) {
         case 1: //1. number of seasons
-            objQ = {
-                question: `How much season there are in ${gSeason.Name} ?`,
+             objQ = {
+                question: `How much season there are in ${gSeason.name} ?`,
                 answer: gSeason.number_of_seasons,
-                answers: [(Math.floor(Math.random() * 10) + 1).toString(),
+                answers:
+                [(Math.floor(Math.random() * 10) + 1).toString(),
                 (Math.floor(Math.random() * 10) + 1).toString(),
                 (Math.floor(Math.random() * 10) + 1).toString(),
-                gSeason.number_of_seasons
+                 gSeason.number_of_seasons.toString()
                 ]
             };
             break;
 
         case 2: //2. first air date - year
-            objQ = {
+             objQ = {
                 question: `When the series was first lanuch?`,
                 answer: gSeason.first_air_date.toString().substring(0, 4),
                 answers: [(Math.floor(Math.random() * 61) + 1960).toString(),
                     (Math.floor(Math.random() * 61) + 1960).toString(),
                     (Math.floor(Math.random() * 61) + 1960).toString(),
-                    gSeason.first_air_date.YearBirth
+                    gSeason.first_air_date.toString().substring(0, 4)
                 ]
             };
             break;
 
         case 3: //3. one from the cast
-            objQ = {
-                question: `How much episodes there are in ${gSeason.Name}`,
-                answer: gSeason.number_of_episodes,
+             objQ = {
+                question: `How much episodes there are in ${gSeason.name}`,
+                 answer: gSeason.number_of_episodes.toString(),
                 answers: [(Math.floor(Math.random() * 250) + 1).toString(),
                     (Math.floor(Math.random() * 250) + 1).toString(),
                     (Math.floor(Math.random() * 250) + 1).toString(),
-                    gSeason.number_of_episodes
+                    gSeason.number_of_episodes.toString()
                 ]
             };
             break;
@@ -559,7 +530,29 @@ function sendQ() {
     showQuestion(objQ);
 }
 
-function showQuestion(objQ){
+function showQuestion(obj) {
+    $(".question").html('');
+    $(".answer-1").html('');
+    $(".answer-2").html('');
+    $(".answer-3").html('');
+    $(".answer-4").html('');
+
+    numbers = []
+
+    while(numbers.length != 4) {
+
+        let num = Math.floor(Math.random() * 4)
+
+        if (!numbers.includes(num)) {
+            numbers.push(num)
+        }
+    }
+
+    $(".question").html(obj.question);
+    $(".answer-1").html(obj.answers[numbers[0]]);
+    $(".answer-2").html(obj.answers[numbers[1]]);
+    $(".answer-3").html(obj.answers[numbers[2]]);
+    $(".answer-4").html(obj.answers[numbers[3]]);
 
 
 
