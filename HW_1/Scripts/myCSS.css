@@ -1,5 +1,7 @@
 
-
+.Menu {
+    box-shadow: -1px 12px 20px 13px black;
+}
 #welcome-user {
     color: white;
 }
@@ -192,141 +194,156 @@ h6#episod-date {
     border-radius: 10px;
 }
 
+button#quizz-btn {
+    margin-right: 5px;
+    font-size: 15px;
+    background-color: #953ced99;
+}
 /* GRID START */
 .gcontainer {
-    display: grid;
-    grid-template-columns: 0.2fr 1.6fr 1.4fr 1.6fr 0.2fr;
-    grid-template-rows: 0.6fr 0.4fr 2fr 1fr 1.7fr 0.3fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "Menu Menu Menu Menu Menu"
-        ". search search search ."
-        ". content content content ."
-        ". content content content ."
-        ". content content content ."
-        ". . made-by . .";
+  display: grid;
+  grid-template-columns: 0.2fr 1.6fr 1.4fr 1.6fr 0.2fr;
+  grid-template-rows: 0.6fr 0.4fr 2fr 1fr 1.7fr 0.3fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "Menu Menu Menu Menu Menu"
+    ". search search search ."
+    ". content content content ."
+    ". content content content ."
+    ". content content content ."
+    ". . made-by . .";
 }
 
 .Menu {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr 1.5fr 0.7fr 0.7fr 1.1fr;
-    grid-template-rows: 0.9fr 1.1fr 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "logo . . . . ."
-        "logo your-fav-tv . login register wellcome"
-        "logo . . . admin-panel-btn disconnect-btn";
-    grid-area: Menu;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr 1.5fr 0.7fr 0.7fr 1.1fr;
+  grid-template-rows: 0.9fr 1.1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "logo . . . . ."
+    "logo your-fav-tv . login register wellcome"
+    "logo . . . admin-panel-btn disconnect-btn";
+  grid-area: Menu;
 }
 
-.register {
-    grid-area: register;
-}
+.register { grid-area: register; }
 
-.login {
-    grid-area: login;
-}
+.login { grid-area: login; }
 
-.logo {
-    grid-area: logo;
-}
+.logo { grid-area: logo; }
 
-.your-fav-tv {
-    grid-area: your-fav-tv;
-}
+.your-fav-tv { grid-area: your-fav-tv; }
 
-.wellcome {
-    grid-area: wellcome;
-}
+.wellcome { grid-area: wellcome; }
 
-.disconnect-btn {
-    grid-area: disconnect-btn;
-}
+.disconnect-btn { grid-area: disconnect-btn; }
 
-.admin-panel-btn {
-    grid-area: admin-panel-btn;
-}
+.admin-panel-btn { grid-area: admin-panel-btn; }
 
 .search {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 0.8fr 1.1fr 1.1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        ". . ."
-        "search-text search-text search-btn"
-        ". . .";
-    grid-area: search;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 0.8fr 1.1fr 1.1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . ."
+    "search-text search-text search-btn"
+    ". . .";
+  grid-area: search;
 }
 
-.search-text {
-    grid-area: search-text;
-}
+.search-text { grid-area: search-text; }
 
-.search-btn {
-    grid-area: search-btn;
-}
+.search-btn { grid-area: search-btn; }
 
-.made-by {
-    grid-area: made-by;
-}
+.made-by { grid-area: made-by; }
 
 .content {
-    display: grid;
-    grid-template-columns: 1fr 1.7fr 0.3fr 1.4fr 0.6fr 1fr 1fr 1fr 1.4fr 0.6fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-        "tv-show-image tv-show-image tv-show-name tv-show-name . . season-render chat chat ."
-        "tv-show-image tv-show-image tv-show-overview tv-show-overview tv-show-overview tv-show-overview . chat chat ."
-        "tv-show-image tv-show-image tv-show-overview tv-show-overview tv-show-overview tv-show-overview quizz-btn chat chat ."
-        "render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes"
-        "render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes"
-        "render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations"
-        "render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations";
-    grid-area: content;
-    box-shadow: 6px 12px 10px 4px rgb(54 53 53 / 58%);
-    background-image: linear-gradient(0deg, #000000fc 0%, #009efd 100%);
-    height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.7fr 0.3fr 1.4fr 0.6fr 0.6fr 1.4fr 1fr 1.4fr 0.6fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "tv-show-image tv-show-image tv-show-name tv-show-name . . season-render chat chat ."
+    "tv-show-image tv-show-image tv-show-overview tv-show-overview tv-show-overview tv-show-overview . chat chat ."
+    "tv-show-image tv-show-image tv-show-overview tv-show-overview tv-show-overview tv-show-overview quizz-btn chat chat ."
+    "render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes"
+    "render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes render-episodes"
+    "render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations"
+    "render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations render-recommendations";
+  grid-area: content;
 }
 
-.render-episodes {
-    grid-area: render-episodes;
+.render-episodes { grid-area: render-episodes; }
+
+.render-recommendations { grid-area: render-recommendations; }
+
+.tv-show-name { grid-area: tv-show-name; }
+
+.chat { grid-area: chat; }
+
+.quizz-btn { grid-area: quizz-btn; }
+
+.tv-show-overview { grid-area: tv-show-overview; }
+
+.tv-show-image { grid-area: tv-show-image; }
+
+.season-render { grid-area: season-render; }
+
+.Menu {
+    box-shadow: -1px 12px 20px 13px black;
 }
-
-.render-recommendations {
-    grid-area: render-recommendations;
-}
-
-.tv-show-name {
-    grid-area: tv-show-name;
-}
-
-.chat {
-    grid-area: chat;
-}
-
-.season-render {
-    grid-area: season-render;
-}
-
-.quizz-btn {
-    grid-area: quizz-btn;
-}
-
-.tv-show-overview {
-    grid-area: tv-show-overview;
-}
-
-.tv-show-image {
-    grid-area: tv-show-image;
-}
-
-
-
 
 /* GRID END */
+
+
+
+/*START QUIZZ*/
+
+.modal-content {
+    margin-top: 30%;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    margin-top: 30%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+/*END QUIZZ*/

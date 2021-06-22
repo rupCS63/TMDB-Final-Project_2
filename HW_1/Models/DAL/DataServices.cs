@@ -196,6 +196,8 @@ namespace HW_1.Models.DAL
                     u.Cellphone = (string)dr["cellphone"];
                     u.Gender = (string)dr["gender"];
                     u.Address = (string)dr["address"];
+                    u.IsAdmin = (bool)dr["isAdmin"];
+                    u.Genre = (string)dr["genre"];
 
                 }
                 return u;

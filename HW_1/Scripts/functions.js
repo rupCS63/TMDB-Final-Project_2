@@ -6,6 +6,9 @@ $(document).ready(function () {
     $("#loginform").submit(loginUser);
     $("#disconnect-btn").hide();
     $("#disconnect-btn").click(disconnectUser);
+    $("#admin-panel-btn1").hide();
+    $('#quizz-btn').hide();
+    $('.chat').hide();
 
     //Randeer popular series by genre (35=comedy)
     getFavSeries(35);
@@ -93,6 +96,9 @@ function userLoginToSystme(user) {
     $("#welcome-user").html(
         "<h6>Welcome " + user.Name + " " + user.LastName + "</h6>"
     );
+    if(user.IsAdmin == true){
+        $(".admin-panel-btn1").show();
+    }
 }
 
 function enterUser(user) {
@@ -104,6 +110,9 @@ function enterUser(user) {
     $("#welcome-user").html(
         "<h6>Welcome " + user.Name + " " + user.LastName + "</h6>"
     );
+    if(user.IsAdmin == true){
+        $(".admin-panel-btn1").show();
+    }
 }
 
 //../api/Users?mail=&password=..
@@ -267,26 +276,8 @@ function getEpisodeSuccessCB(episod) {
                         <h4 id="episod-name">${episod.episodes[i].name}</h4>
                         <h6 id="episod-date">${episod.episodes[i].air_date}</h6>
                         <button onclick='savenumber(${i});postSeries(${x})'; type='button' id="addtofav-btn" class='myButton'>Add to favorite</button>
-                        
-
+                   
                     </div>`
-
-
-            //"<div>Name: " +
-            //episod.episodes[i].name +
-            //"</div>" +
-            //"<div>" +
-            //imgURL +
-            //"</div>" +
-            //"<div>Overview: " +
-            //episod.episodes[i].overview +
-            //"</div>" +
-            //"<div>Air Date: " +
-            //episod.episodes[i].air_date +
-            //"</div>" +
-            //"<button onclick='savenumber(" + i + ");postSeries(" + x + ")'; type='button' class='btn btn-success'>Add Episode</button>" +
-            //"<br>" +
-            //"<br>"
         );
     }
 }
@@ -334,7 +325,12 @@ function getSeasonSuccessCB(season) {
     gSeason = season;
     renderChat(gSeason);
     renderSeason(season);
+    initQuestionbtn();
    
+}
+function initQuestionbtn(){
+    $('#quizz-btn').show();
+    $('#quizz-btn').html(`Take Question about ${gSeason.name}`)
 }
 
 function getSeasonErrorCB(err) {
@@ -359,7 +355,8 @@ function renderChat(gSeason) {
 
 
 function initChat(){
-
+    $('.chat').show();
+    $("#chat-name").html(`${gSeason.name} Chat`)
     active = false;
     msgArr = [];
     chat = firebase.database().ref(gSeason.name);
@@ -402,6 +399,9 @@ function printMessage(msg) {
 
 function AddMSG() {
     let msg = $('#chat-input').val()
+    if(msg === ""){
+        return
+    }
     let name = JSON.parse(localStorage.getItem('user-login')).Name
     chat.push().set({"msg":msg,"name":name});
     $('#chat-input').val('')
@@ -435,150 +435,73 @@ function printMessages(msgArr){
 }
 // CHAT END
 
+
+
 //Quiz:
 
+var modal = document.getElementById("myModal");
 
-//Quiz function:
-//return array of string: type of answer, question ,picture ,(API) 4 generate answers
-function getQuestions() {
-    //there is 4 type of questions:
-    //1. birthday of actors
-    //2. who's the actor in the picture
-    //3. what is the series in the picture
-    //4. In which year the series in launch
+// Get the button that opens the modal
+var btn = document.getElementById("quizz-btn");
 
-    //const vars
-    let PERSON_NUM = 10000;
-    let TV_NUM = 120000;
+// Get the <span> element that closes the modals
+var span = document.getElementById("close-quiz");
 
-    //strings
-    let url = `https://api.themoviedb.org/3/`;
-    let apitoken = `1e5a5ee20af326aebb685a34a1868b76`;
-    let urlend = `&language=en-US`;
-    // person/tv /<<code>>
-    let generateCode;
-
-    //type of q with 4 option
-    data = [];
-
-    //generate the type of the question 1-4
-    qType = Math.floor(Math.random() * 4) + 1;
-    data[0] = qType.toString(); //put type of question	
-
-    switch (qType) {
-
-        //Actors:
-        case 1: case 2:
-            //1. birthday filed
-            //2. profile_path field
-
-            //put type of question	
-            if (qType == 1)
-                data[1] = 'What is the birthday of actor?';
-            else
-                data[1] = 'Who is the actor in the picture?';
-
-            //generate 4 answers
-            for (let i = 2; i < 6; i++) {
-                generateCode = Math.floor(Math.random() * PERSON_NUM) + 1; //generate actor code
-                data[i] = url + 'person/' + generateCode + '?api_key=' + apitoken + urlend;
-            }
-            break;
-
-        //Series:
-        case 3: case 4:
-            //3. first_air_date field
-            //4. poster_path
-
-            //put type of question	
-            if (qType == 1)
-                data[1] = 'When the series was first to launch?';
-            else
-                data[1] = 'What is the series in the picrue?';
-
-            //generate 4 answers
-            for (let i = 2; i < 6; i++) {
-                generateCode = Math.floor(Math.random() * TV_NUM) + 1; //generate actor code
-                data[i] = url + 'tv/' + generateCode + '?api_key=' + apitoken + urlend;
-            }
-            break;
-
-        default:
-            console.log(`Sorry, we are out of ${qType}.`);
-    }
-
-    console.log(data);
-
-    releaseQuestions(data);
-    return;
+// When the user clicks on the button, open the modal
+btn.onclick = function () {
+    modal.style.display = "block";
 }
 
-//function get from APIs
-//return array of string: type of question, question, 4 answers, number of currect answer 
-function releaseQuestions(data) {
-    //data = array of string: type of answer, question ,picture ,(API) 4 generate answers
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+    modal.style.display = "none";
+}
 
-    //there is 4 type of questions:
-    //1. birthday of actors - picture, 4 Dates
-    //2. who's the actor in the picture - picture, 4 names
-    //3. what is the series in the picture - picture, 4 names
-    //4. In which year the series in launch - picrue, 4 years(int)
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
-    questionsData = [];
-    questionsData[0] = data[0]; //type of question
-    questionsData[1] = data[1]; //The question
 
-    console.log(data[2]);
-    //put the question picture
-    ajaxCall("GET", data[2],null, s(), e()); //id
+$(function () {
+    var loading = $('#loadbar').hide();
+    $(document)
+        .ajaxStart(function () {
+            loading.show();
+        }).ajaxStop(function () {
+            loading.hide();
+        });
 
-    /*
-    //var ajaxCall1 = $.get(data[2], {}, null);
-    console.log(data[2]);
-    $.ajax({
-        url: data[2],
-        //dataType: "JSON",
-        type: "GET",
-    }).success(function (data1) {
-
-        console.log(data1);
+    $("label.btn").on('click', function () {
+        var choice = $(this).find('input:radio').val();
+        $('#loadbar').show();
+        $('#quiz').fadeOut();
+        setTimeout(function () {
+            $("#answer").html($(this).checking(choice));
+            $('#quiz').show();
+            $('#loadbar').fadeOut();
+            /* something else */
+        }, 1500);
     });
-    switch (questionsData[0]) {
-        case '1':
-            console.log(ajaxCall1.responseJSON.first_air_date.YearBirth);
-            break;
 
-        case '2':
-            console.log(ajaxCall1.responseJSON.profile_path);
-            break;
+    $ans = 3;
 
-        case '3':
-            console.log(ajaxCall1.responseJSON.poster_path);
-            break;
-
-        case '4':
-            console.log(ajaxCall1.responseJSON.poster_path);
-            break;
-
-        default:
-            alert("Error");
-    }
-    */   
-
-    //put the answer number and generate
-
-    //get the 4 answers
-
-}
-function e(e){
-    alert(e);
-}
-function s(obj) {
-    console.log(obj);
-}
+    $.fn.checking = function (ck) {
+        if (ck != $ans)
+            return 'INCORRECT';
+        else
+            return 'CORRECT';
+    };
+});	
 
 
-//get: gSeosen (the currenct)
+
+
+
+
+
 //return: obj: q,4 answers, answer.
 function sendQ() {
     //type of qs:
@@ -633,5 +556,12 @@ function sendQ() {
     } 
 
     console.log(objQ);
-    return objQ;
+    showQuestion(objQ);
+}
+
+function showQuestion(objQ){
+
+
+
+
 }

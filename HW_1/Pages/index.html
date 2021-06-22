@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8" />
     <title></title>
 
@@ -8,280 +8,298 @@
     <!-- <link rel="stylesheet" href="../Scripts/myCSS.css"> -->
     <link rel="stylesheet" href="myCSS.css">
 
-    <script
-      src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-      crossorigin="anonymous"
-      ></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
     <script src="../Scripts/ajaxCalls.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-      crossorigin="anonymous"
-    />
-  </head>
-  <body>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous" />
+</head>
+<body>
 
 
-      <!-- GRID STRAT -->
-      <div class="gcontainer">
-          <div class="Menu w3-border-bottom">
-              <div class="register">
-                  <button onclick="document.getElementById('id01').style.display='block'"
-                          class="myButton"
-                          id="register-btn">
-                      Register
-                  </button>
-              </div>
-              <div class="login">
-                  <button onclick="document.getElementById('id02').style.display='block'"
-                          class="myButton"
-                          id="login-btn">
-                      Login
-                  </button>
-              </div>
-              <div class="logo">
-                  <img id="icon" src="icon.png">
-              </div>
-              <div class="your-fav-tv">
-                  <a href="../Pages/view.html">
-                      <button class="myButton">
-                          Your favorite episodes
-                      </button>
-                  </a>
-              </div>
-              <div class="wellcome">
-                  <div id="welcome-user"></div>
-              </div>
-              <div class="disconnect-btn">
-                  <button onclick="document.getElementById('id01').style.display='block'"
-                          class="myButton"
-                          id="disconnect-btn">
-                      Disconnect
-                  </button>
-              </div>
-              <div class="admin-panel-btn"></div>
-          </div>
-          <div class="search">
-              <div class="search-text">
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend">
-                      </div>
-                      <input id="tvShowName"
-                             type="text"
-                             class="form-control"
-                             placeholder="Search TV Show"
-                             aria-label="Username"
-                             aria-describedby="basic-addon1" />
-                  </div>
-              </div>
-              <div class="search-btn">
-                  <button class="myButton" id="getTV">
-                      Search
-                  </button>
-              </div>
-          </div>
-          <div class="content">
-              <div class="tv-show-image"></div>
-              <div class="tv-show-name"></div>
-              <div class="tv-show-overview"></div>
-              <div class="season-render">         </div>
-              <div class="chat">
-                  <h4 id="chat-name">chat</h4>
-                    <div class="chat-window">
-                        <section style="font-size: 40px;" id="chat-messages">            
+    <!-- GRID STRAT -->
+    <div class="gcontainer">
+        <div class="Menu">
+            <div class="register">
+                <button onclick="document.getElementById('id01').style.display='block'"
+                        class="myButton"
+                        id="register-btn">
+                    Register
+                </button>
+            </div>
+            <div class="login">
+                <button onclick="document.getElementById('id02').style.display='block'"
+                        class="myButton"
+                        id="login-btn">
+                    Login
+                </button>
+            </div>
+            <div class="logo">
+                <a href="../Pages/index.html">
+                    <img id="icon" src="icon.png">
+                </a>
+            </div>
+            <div class="your-fav-tv">
+                <a href="../Pages/view.html">
+                    <button class="myButton">
+                        Your favorite episodes
+                    </button>
+                </a>
+            </div>
+            <div class="wellcome">
+                <div id="welcome-user"></div>
+            </div>
+            <div class="disconnect-btn">
+                <button onclick="document.getElementById('id01').style.display='block'"
+                        class="myButton"
+                        id="disconnect-btn">
+                    Disconnect
+                </button>
+            </div>
+            <div class="admin-panel-btn">
+                <a href="../Pages/admin-panel.html">
+                    <button class="myButton" id="admin-panel-btn1">
+                        Admin Panel
+                    </button>
+                </a>
 
-                        </section>
-                        <input type="text" id="chat-input">
-                        <button class="myButton" onclick="AddMSG()" id="chat-send-btn">
-                            Send
-                        </button>
+
+            </div>
+        </div>
+        <div class="search">
+            <div class="search-text">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
                     </div>
+                    <input id="tvShowName"
+                           type="text"
+                           class="form-control"
+                           placeholder="Search TV Show"
+                           aria-label="Username"
+                           aria-describedby="basic-addon1" />
+                </div>
+            </div>
+            <div class="search-btn">
+                <button class="myButton" id="getTV">
+                    Search
+                </button>
+            </div>
+        </div>
+        <div class="content">
+            <div class="tv-show-image"></div>
+            <div class="tv-show-name"></div>
+            <div class="tv-show-overview"></div>
+            <div class="season-render">         </div>
+            <div class="chat">
+                <h4 id="chat-name">chat</h4>
+                <div class="chat-window">
+                    <section style="font-size: 40px;" id="chat-messages">
+                    </section>
+                    <input type="text" id="chat-input">
+                    <button class="myButton" onclick="AddMSG()" id="chat-send-btn">
+                        Send
+                    </button>
+                </div>
 
 
-              </div>
-              <div class="render-episodes">
-                  <div class="scrolling-wrapper">
-                  </div>
-              </div>
-              <div class="quizz-btn"></div>
-              <div class="render-recommendations"></div>
-          </div>
-          <div class="made-by"></div>
-      </div>
-      <!-- GRID END -->
-      <div>
-          <div id="id01" class="w3-modal">
-              <div class="w3-modal-content w3-card-4 w3-animate-zoom"
-                   style="max-width: 600px">
-                  <div class="w3-center">
-                      <br />
-                      <span onclick="document.getElementById('id01').style.display='none'"
-                            class="w3-button w3-xlarge w3-hover-red w3-display-topright"
-                            title="Close Modal">&times;</span>
+            </div>
+            <div class="render-episodes">
+                <div class="scrolling-wrapper">
+                </div>
+            </div>
+            <div class="quizz-btn">
+                <button class="myButton" onclick="" id="quizz-btn">
+                </button>
+            </div>
+            <div class="render-recommendations"></div>
+        </div>
+        <div class="made-by"></div>
+    </div>
+    <!-- GRID END -->
+    <div>
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom"
+                 style="max-width: 600px">
+                <div class="w3-center">
+                    <br />
+                    <span onclick="document.getElementById('id01').style.display='none'"
+                          class="w3-button w3-xlarge w3-hover-red w3-display-topright"
+                          title="Close Modal">&times;</span>
 
-                      <img src="../Images/img_tmdb.png"
-                           alt="Avatar"
-                           style="width: 30%"
-                           class="w3-margin-top" />
-                  </div>
+                    <img src="../Images/img_tmdb.png"
+                         alt="Avatar"
+                         style="width: 30%"
+                         class="w3-margin-top" />
+                </div>
 
-                  <form id="formUser" class="w3-container">
+                <form id="formUser" class="w3-container">
 
-                      <div class="w3-section">
-                          <label><b>Username</b></label>
-                          <input class="w3-input w3-border w3-margin-bottom"
-                                 type="text"
-                                 placeholder="Enter User name"
-                                 id="usrname"
-                                 required />
-                          <label><b>User last name</b></label>
-                          <input class="w3-input w3-border w3-margin-bottom"
-                                 type="text"
-                                 placeholder="Enter User last name"
-                                 id="userlastname"
-                                 required />
-                          <label><b>User eMail</b></label>
-                          <input class="w3-input w3-border w3-margin-bottom"
-                                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                                 type="text"
-                                 placeholder="Enter User eMail"
-                                 id="useremail"
-                                 required />
-                          <label><b>Password</b></label>
-                          <input class="w3-input w3-border"
-                                 type="password"
-                                 placeholder="Enter Password"
-                                 id="psw"
-                                 oninvalid="this.setCustomValidity('Invalid format! atleast 1 Uppercase 1 number and  6 letters required!')"
-                                 oninput="this.setCustomValidity('')"
-                                 pattern="(?=.*\d)(?=.*[A-Z]).{6,}"
-                                 required />
-                          <label><b>User phone number</b></label>
-                          <input class="w3-input w3-border w3-margin-bottom"
-                                 pattern="[0][0-9]{2}-[0-9]{7}"
-                                 type="text"
-                                 oninvalid="setCustomValidity('Invalid format! Required Format 0dd-ddddddd')"
-                                 oninput="this.setCustomValidity('')"
-                                 placeholder="Enter User phone number"
-                                 id="userphonenum"
-                                 required />
-                          <label for="genderDDL"><b>Gender</b></label>
-                          <select id="genderDDL" required>
-                              <option value="Male">Male</option>
-                              <option value="Female">Female</option>
-                              <option value="Other">Other</option>
-                          </select><br />
-                          <label><b>User Year of Birth</b></label>
-                          <input class="w3-input w3-border w3-margin-bottom"
-                                 type="text"
-                                 pattern="^(19|20)\d{2}$"
-                                 placeholder="Enter User year of birth"
-                                 id="useryear"
-                                 required />
-                          <label for="genreDDL"><b>Favorite Genre</b></label>
-                          <select id="genreDDL">
-                              required will not accept "" value
-                              <option value="">choose</option>
-                              <option value="comedy">Comedy</option>
-                              <option value="action">Action</option>
-                              <option value="drama">Drama</option>
-                              <option value="documentary">Documentary</option>
-                          </select>(Not Required)<br />
-                          <label><b>User Address</b></label>
-                          <input class="w3-input w3-border w3-margin-bottom"
-                                 type="text"
-                                 placeholder="Enter Address"
-                                 id="useraddress"
-                                 required />
-                          <input class="w3-button w3-block w3-green w3-section w3-padding"
-                                 type="submit"
-                                 placeholder="Submit" />
-                      </div>
-                  </form>
+                    <div class="w3-section">
+                        <label><b>Username</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom"
+                               type="text"
+                               placeholder="Enter User name"
+                               id="usrname"
+                               required />
+                        <label><b>User last name</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom"
+                               type="text"
+                               placeholder="Enter User last name"
+                               id="userlastname"
+                               required />
+                        <label><b>User eMail</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom"
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                               type="text"
+                               placeholder="Enter User eMail"
+                               id="useremail"
+                               required />
+                        <label><b>Password</b></label>
+                        <input class="w3-input w3-border"
+                               type="password"
+                               placeholder="Enter Password"
+                               id="psw"
+                               oninvalid="this.setCustomValidity('Invalid format! atleast 1 Uppercase 1 number and  6 letters required!')"
+                               oninput="this.setCustomValidity('')"
+                               pattern="(?=.*\d)(?=.*[A-Z]).{6,}"
+                               required />
+                        <label><b>User phone number</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom"
+                               pattern="[0][0-9]{2}-[0-9]{7}"
+                               type="text"
+                               oninvalid="setCustomValidity('Invalid format! Required Format 0dd-ddddddd')"
+                               oninput="this.setCustomValidity('')"
+                               placeholder="Enter User phone number"
+                               id="userphonenum"
+                               required />
+                        <label for="genderDDL"><b>Gender</b></label>
+                        <select id="genderDDL" required>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select><br />
+                        <label><b>User Year of Birth</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom"
+                               type="text"
+                               pattern="^(19|20)\d{2}$"
+                               placeholder="Enter User year of birth"
+                               id="useryear"
+                               required />
+                        <label for="genreDDL"><b>Favorite Genre</b></label>
+                        <select id="genreDDL">
+                            required will not accept "" value
+                            <option value="">choose</option>
+                            <option value="comedy">Comedy</option>
+                            <option value="action">Action</option>
+                            <option value="drama">Drama</option>
+                            <option value="documentary">Documentary</option>
+                        </select>(Not Required)<br />
+                        <label><b>User Address</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom"
+                               type="text"
+                               placeholder="Enter Address"
+                               id="useraddress"
+                               required />
+                        <input class="w3-button w3-block w3-green w3-section w3-padding"
+                               type="submit"
+                               placeholder="Submit" />
+                    </div>
+                </form>
 
-                  <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                      <button onclick="document.getElementById('id01').style.display='none'"
-                              type="button"
-                              class="w3-button w3-blue">
-                          Cancel
-                      </button>
-                  </div>
-              </div>
-          </div>
+                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                    <button onclick="document.getElementById('id01').style.display='none'"
+                            type="button"
+                            class="w3-button w3-blue">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
 
-          <div id="id02" class="w3-modal">
-              <div class="w3-modal-content w3-card-4 w3-animate-zoom"
-                   style="max-width: 600px">
-                  <div class="w3-center">
-                      <br />
-                      <span onclick="document.getElementById('id02').style.display='none'"
-                            class="w3-button w3-xlarge w3-hover-red w3-display-topright"
-                            title="Close Modal">&times;</span>
-                      <img src="../Images/img_tmdb.png"
-                           alt="Avatar"
-                           style="width: 30%"
-                           class="w3-margin-top" />
-                  </div>
+        <div id="id02" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom"
+                 style="max-width: 600px">
+                <div class="w3-center">
+                    <br />
+                    <span onclick="document.getElementById('id02').style.display='none'"
+                          class="w3-button w3-xlarge w3-hover-red w3-display-topright"
+                          title="Close Modal">&times;</span>
+                    <img src="../Images/img_tmdb.png"
+                         alt="Avatar"
+                         style="width: 30%"
+                         class="w3-margin-top" />
+                </div>
 
-                  <form id="loginform" class="w3-container">
-                      <div class="w3-section">
-                          <label><b>Username</b></label>
-                          <input class="w3-input w3-border w3-margin-bottom"
-                                 type="text"
-                                 placeholder="Enter Username"
-                                 id="userlogin"
-                                 required />
-                          <label><b>Password</b></label>
-                          <input class="w3-input w3-border"
-                                 type="password"
-                                 placeholder="Enter Password"
-                                 id="passwordlogin"
-                                 required />
-                          <input class="w3-button w3-block w3-light-green w3-section w3-padding"
-                                 type="submit" />
-                      </div>
-                  </form>
+                <form id="loginform" class="w3-container">
+                    <div class="w3-section">
+                        <label><b>Username</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom"
+                               type="text"
+                               placeholder="Enter Username"
+                               id="userlogin"
+                               required />
+                        <label><b>Password</b></label>
+                        <input class="w3-input w3-border"
+                               type="password"
+                               placeholder="Enter Password"
+                               id="passwordlogin"
+                               required />
+                        <input class="w3-button w3-block w3-light-green w3-section w3-padding"
+                               type="submit" />
+                    </div>
+                </form>
 
-                  <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                      <button onclick="document.getElementById('id02').style.display='none'"
-                              type="button"
-                              class="w3-button w3-blue">
-                          Cancel
-                      </button>
-                  </div>
-              </div>
-          </div>
-      </div>
+                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                    <button onclick="document.getElementById('id02').style.display='none'"
+                            type="button"
+                            class="w3-button w3-blue">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-      <div id="ph"></div>
+    <div id="ph"></div>
 
-      <div id="seasonredner"></div>
+    <div id="seasonredner"></div>
 
-      <div class="container-tvshow"></div>
+    <div class="container-tvshow"></div>
+    <!--<div id="myModal" class="modal">
+        <div class="container modal-content">-->
+            <!--QUIZZ-->
+    <div id="myModal" class="modal">
+        <div class="container modal-content">
+            <div id="quiz">
+            <button id="close-quiz">Close</button>
+            texta
+            </div>
+            </div>
+        </div>
 
+            <!-- The core Firebase JS SDK is always required and must be listed first -->
+            <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+            <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+            <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
 
-      <!-- The core Firebase JS SDK is always required and must be listed first -->
-      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-      <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-
-      <script>
-          // Your web app's Firebase configuration
-          var firebaseConfig = {
-              apiKey: "AIzaSyBz9rswO-KJiBnLUlacieYwUT9KgTOeCGo",
-              authDomain: "tmdb-chat.firebaseapp.com",
-              projectId: "tmdb-chat",
-              storageBucket: "tmdb-chat.appspot.com",
-              messagingSenderId: "736288363968",
-              appId: "1:736288363968:web:32b5ea5dc4ac4e47a62425",
-              databaseURL: "https://tmdb-chat-default-rtdb.europe-west1.firebasedatabase.app"
-          };
-          // Initialize Firebase
-          firebase.initializeApp(firebaseConfig);
-      </script>
-      <script src="../Scripts/functions.js"></script>
-  </body>
+            <script>
+                // Your web app's Firebase configuration
+                var firebaseConfig = {
+                    apiKey: "AIzaSyBz9rswO-KJiBnLUlacieYwUT9KgTOeCGo",
+                    authDomain: "tmdb-chat.firebaseapp.com",
+                    projectId: "tmdb-chat",
+                    storageBucket: "tmdb-chat.appspot.com",
+                    messagingSenderId: "736288363968",
+                    appId: "1:736288363968:web:32b5ea5dc4ac4e47a62425",
+                    databaseURL: "https://tmdb-chat-default-rtdb.europe-west1.firebasedatabase.app"
+                };
+                // Initialize Firebase
+                firebase.initializeApp(firebaseConfig);
+            </script>
+            <script src="../Scripts/functions.js"></script>
+</body>
 </html>
