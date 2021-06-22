@@ -7,6 +7,8 @@ $(document).ready(function () {
     $("#disconnect-btn").hide();
     $("#disconnect-btn").click(disconnectUser);
 
+    getQuestions();
+
     //Randeer popular series by genre (35=comedy)
     getFavSeries(35);
 
@@ -429,3 +431,135 @@ function printMessages(msgArr){
     reder_messages.innerHTML = str;
 }
 // CHAT END
+
+//Quiz:
+//Quiz function:
+//return array of string: type of answer, question ,picture ,(API) 4 generate answers
+function getQuestions() {
+    //there is 4 type of questions:
+    //1. birthday of actors
+    //2. who's the actor in the picture
+    //3. what is the series in the picture
+    //4. In which year the series in launch
+
+    //const vars
+    let PERSON_NUM = 10000;
+    let TV_NUM = 120000;
+
+    //strings
+    let url = `https://api.themoviedb.org/3/`;
+    let apitoken = `1e5a5ee20af326aebb685a34a1868b76`;
+    let urlend = `&language=en-US`;
+    // person/tv /<<code>>
+    let generateCode;
+
+    //type of q with 4 option
+    data = [];
+
+    //generate the type of the question 1-4
+    qType = Math.floor(Math.random() * 4) + 1;
+    data[0] = qType.toString(); //put type of question	
+
+    switch (qType) {
+
+        //Actors:
+        case 1: case 2:
+            //1. birthday filed
+            //2. profile_path field
+
+            //put type of question	
+            if (qType == 1)
+                data[1] = 'What is the birthday of actor?';
+            else
+                data[1] = 'Who is the actor in the picture?';
+
+            //generate 4 answers
+            for (let i = 2; i < 6; i++) {
+                generateCode = Math.floor(Math.random() * PERSON_NUM) + 1; //generate actor code
+                data[i] = url + 'person/' + generateCode + '?api_key=' + apitoken + urlend;
+            }
+            break;
+
+        //Series:
+        case 3: case 4:
+            //3. first_air_date field
+            //4. poster_path
+
+            //put type of question	
+            if (qType == 1)
+                data[1] = 'When the series was first to launch?';
+            else
+                data[1] = 'What is the series in the picrue?';
+
+            //generate 4 answers
+            for (let i = 2; i < 6; i++) {
+                generateCode = Math.floor(Math.random() * TV_NUM) + 1; //generate actor code
+                data[i] = url + 'tv/' + generateCode + '?api_key=' + apitoken + urlend;
+            }
+            break;
+
+        default:
+            console.log(`Sorry, we are out of ${qType}.`);
+    }
+
+    console.log(data);
+
+    releaseQuestions(data);
+    return;
+}
+
+//function get from APIs
+//return array of string: type of question, question, 4 answers, number of currect answer 
+function releaseQuestions(data) {
+    //data = array of string: type of answer, question ,picture ,(API) 4 generate answers
+
+    //there is 4 type of questions:
+    //1. birthday of actors - picture, 4 Dates
+    //2. who's the actor in the picture - picture, 4 names
+    //3. what is the series in the picture - picture, 4 names
+    //4. In which year the series in launch - picrue, 4 years(int)
+
+    questionsData = [];
+    questionsData[0] = data[0]; //type of question
+    questionsData[1] = data[1]; //The question
+
+    //put the question picture
+
+    /*
+    //var ajaxCall1 = $.get(data[2], {}, null);
+    console.log(data[2]);
+    $.ajax({
+        url: data[2],
+        //dataType: "JSON",
+        type: "GET",
+    }).success(function (data1) {
+
+        console.log(data1);
+    });
+    switch (questionsData[0]) {
+        case '1':
+            console.log(ajaxCall1.responseJSON.first_air_date.YearBirth);
+            break;
+
+        case '2':
+            console.log(ajaxCall1.responseJSON.profile_path);
+            break;
+
+        case '3':
+            console.log(ajaxCall1.responseJSON.poster_path);
+            break;
+
+        case '4':
+            console.log(ajaxCall1.responseJSON.poster_path);
+            break;
+
+        default:
+            alert("Error");
+    }
+    */   
+
+    //put the answer number and generate
+
+    //get the 4 answers
+
+}
