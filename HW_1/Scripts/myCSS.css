@@ -304,9 +304,7 @@ button#quizz-btn {
 
 /*START QUIZZ*/
 
-.modal-content {
-    margin-top: 30%;
-}
+
 
 /* The Modal (background) */
 .modal {
@@ -325,11 +323,10 @@ button#quizz-btn {
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
     margin-top: 30%;
+    height: 300px;
+    width: 300px;
 }
 
 /* The Close Button */
