@@ -52,6 +52,7 @@ h6#episod-name {
     border-radius: 10px;
     background-color: #00000073;
     /* overflow:hidden; */
+    margin-bottom: 10px;
 }
 #chat-input{
 margin-bottom: 10px;
@@ -77,9 +78,13 @@ background-color: #FFF;
 height: 400px;
 max-height: 400;
 }
-#chat-name{
+#chat-name {
     font-size: 30px;
     text-align: center;
+    text-shadow: 5px 0 8px black;
+    color: white;
+    font-weight: 300;
+    font-family: monospace;
 }
 /* CHAT END */
 .myButton {
@@ -147,6 +152,23 @@ h6#episod-date {
     white-space: nowrap;
     width: 90%;
 }
+
+/* #chat-message::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+
+#chat-message::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
+#chat-message::-webkit-scrollbar-thumb {
+    border-radius: 15px;
+    background-color: #FFF;
+    background-image: -webkit-gradient(linear, 40% 0%, 75% 84%, from(#000000), to(rgb(0, 0, 0)), color-stop(.6,#000000))
+} */
 
 
 #style-15::-webkit-scrollbar-track {
@@ -305,6 +327,9 @@ h6#episod-date {
 
 .tv-show-overview {
     grid-area: tv-show-overview;
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
 }
 
 .tv-show-image {

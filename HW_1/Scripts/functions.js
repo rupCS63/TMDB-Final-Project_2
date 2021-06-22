@@ -361,25 +361,30 @@ function renderChat(gSeason) {
 
 
 function initChat(){
+
     active = false;
     msgArr = [];
     chat = firebase.database().ref(gSeason.name);
     reder_messages = document.getElementById("chat-messages");
+    $('#chat-name').val(gSeason.name + ' Chat')
     // msg = 'hey1'
     // chat.push().set({"msg":msg,"name":JSON.parse(localStorage.getItem('user-login')).Name});
     getMSGfromDB()
-    initSendBTN()
-    listenToNewMessages()
     // listen to incoming messages
-     //listenToNewMessages();
-    // listenToNewParticipants();
-    // listen to removing messages
-    // listenToRemove();
-    // ph = document.getElementById("ph");
-    // participants = document.getElementById("participants");
+    initSentBTN()
+    listenToNewMessages()
+     
 
 
 }
+function initSentBTN(){
+    $("#chat-input").keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#chat-send-btn").click();
+        }
+    });
+}
+
 function listenToNewMessages() {
     // child_added will be evoked for every child that was added
     // on the first entry, it will bring all the childs
