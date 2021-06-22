@@ -523,7 +523,9 @@ function releaseQuestions(data) {
     questionsData[0] = data[0]; //type of question
     questionsData[1] = data[1]; //The question
 
+    console.log(data[2]);
     //put the question picture
+    ajaxCall("GET", data[2],null, s(), e()); //id
 
     /*
     //var ajaxCall1 = $.get(data[2], {}, null);
@@ -562,4 +564,10 @@ function releaseQuestions(data) {
 
     //get the 4 answers
 
+}
+function e(e){
+    alert(e);
+}
+function s(obj) {
+    console.log(obj);
 }
