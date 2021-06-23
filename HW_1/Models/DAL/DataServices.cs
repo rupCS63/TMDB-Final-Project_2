@@ -39,8 +39,8 @@ namespace HW_1.Models.DAL
             {
                 User temp = (User)Obj;
                 // use a string builder to create the dynamic string
-                string sql_insert = "Values(@username,@userlastname,@email,@password,@cellphone,@gender,@address,@genre,@yearofbirth)";
-                string prefix = "INSERT INTO Users_2021 " + "(username,userlastname,email,password,cellphone,gender,address,genre,yearofbirth)";
+                string sql_insert = "Values(@username,@userlastname,@email,@password,@cellphone,@gender,@address,@genre,@yearofbirth,@isAdmin,@points)";
+                string prefix = "INSERT INTO Users_2021 " + "(username,userlastname,email,password,cellphone,gender,address,genre,yearofbirth,isAdmin,points)";
                 string CommandText = prefix + sql_insert;
                 SqlCommand cmd = new SqlCommand(CommandText, con);
                 cmd.Parameters.AddWithValue("@username", temp.Name);
@@ -52,6 +52,10 @@ namespace HW_1.Models.DAL
                 cmd.Parameters.AddWithValue("@address", temp.Address);
                 cmd.Parameters.AddWithValue("@genre", temp.Genre);
                 cmd.Parameters.AddWithValue("@yearofbirth", temp.YearBirth);
+                cmd.Parameters.AddWithValue("@isAdmin", 0);
+                cmd.Parameters.AddWithValue("@points", 0);
+
+
 
 
 
@@ -630,7 +634,57 @@ namespace HW_1.Models.DAL
 
                 }
             }
-        
+
+
+        public int addPoints(int id)
+        {
+            SqlConnection con = new SqlConnection();
+
+            try
+            {
+                con = connect("DBConnectionString"); // create the connection
+            }
+            catch (Exception ex)
+            {
+                // write to log
+                throw (ex);
+            }
+
+            string sql_insert = "Values(@userid1,@episode_id1)";
+            string prefix = "INSERT INTO Favorites_2021 " + "(userid1,episode_id1)";
+            string CommandText = prefix + sql_insert;
+            SqlCommand cmd = new SqlCommand(CommandText, con);
+            cmd.Parameters.AddWithValue("@userid1", id);
+            cmd.Parameters.AddWithValue("@episode_id1", episode.Id);
+
+
+            try
+            {
+                int numEffected = cmd.ExecuteNonQuery(); // execute the command
+                return numEffected;
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 2627)
+                {
+                    return 0;
+                }
+                else throw;
+            }
+
+            finally
+            {
+                if (con != null)
+                {
+                    // close the db connection
+                    con.Close();
+                }
+            }
+
+
+        }
+
+
         //Get episodes by its user id
         public List<Episode> GetUserEpisodesById(string user_id)
         {
